@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/app/components/product_item_favorites.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -37,7 +38,7 @@ class FavoritesView extends GetView<FavoritesController> {
                       shrinkWrap: true,
                       primary: false,
                       itemCount: controller.products.length,
-                      itemBuilder: (context, index) => ProductItem(
+                      itemBuilder: (context, index) => ProductItemFavorites(
                         product: controller.products[index],
                       ),
                     ),

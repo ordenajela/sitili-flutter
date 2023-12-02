@@ -1,3 +1,5 @@
+// cart_view.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -77,21 +79,22 @@ class CartView extends GetView<CartController> {
                               fontSize: 18.sp,
                             )),
                         10.verticalSpace,
-                        Text(
-                          '\$${controller.total.toStringAsFixed(2)}',
-                          style: theme.textTheme.displayLarge?.copyWith(
-                            decoration: TextDecoration.underline,
-                            decorationColor:
-                                theme.primaryColor.withOpacity(0.5),
-                            decorationThickness: 1,
-                            color: Colors.transparent,
-                            shadows: [
-                              Shadow(
-                                  color: theme.textTheme.displayLarge!.color!,
-                                  offset: const Offset(0, -5)),
-                            ],
-                          ),
-                        ),
+                        Obx(() => Text(
+                              '\$${controller.total.toStringAsFixed(2)}',
+                              style: theme.textTheme.displayLarge?.copyWith(
+                                decoration: TextDecoration.underline,
+                                decorationColor:
+                                    theme.primaryColor.withOpacity(0.5),
+                                decorationThickness: 1,
+                                color: Colors.transparent,
+                                shadows: [
+                                  Shadow(
+                                    color: theme.textTheme.displayLarge!.color!,
+                                    offset: const Offset(0, -5),
+                                  ),
+                                ],
+                              ),
+                            ))
                       ],
                     ),
                   ],

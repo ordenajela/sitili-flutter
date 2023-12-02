@@ -8,9 +8,12 @@ environment:
 dependencies: 
   cupertino_icons:
   email_validator: ^2.0.1
+  http: 1.1.0
   flutter_screenutil: ^5.8.4 
   shared_preferences: ^2.2.0 
   carousel_slider: ^4.2.1
+  cached_network_image: ^3.0.0
+  connectivity: ^3.0.6
   flutter_launcher_icons: 
   change_app_package_name: 
   rename_app: 

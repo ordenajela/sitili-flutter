@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/app/modules/settings/views/widgets/setting_item_logout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -32,14 +33,14 @@ class SettingsView extends GetView<SettingsController> {
                 )),
             20.verticalSpace,
             const SettingsItem(
-              title: 'Daniel Marquina',
+              title: 'Mi perfil',
               icon: Constants.userIcon,
               isAccount: true,
             ),
             30.verticalSpace,
             Text('Configuraciones',
                 style: theme.textTheme.displayMedium?.copyWith(
-                  fontSize: 20.sp,
+                  fontSize: 20.sp, 
                   fontWeight: FontWeight.normal,
                 )),
             20.verticalSpace,
@@ -49,7 +50,7 @@ class SettingsView extends GetView<SettingsController> {
               isDark: true,
             ),
             25.verticalSpace,
-            const SettingsItem(
+            const SettingsItemLogOut(
               title: 'Cerrar sesión',
               icon: Constants.logoutIcon,
             ),

@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/app/modules/login/views/login_screen.dart';
 import 'package:ecommerce_app/app/modules/profile/views/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,13 +9,13 @@ import 'package:get/get.dart';
 import '../../../../../utils/constants.dart';
 import '../../controllers/settings_controller.dart';
 
-class SettingsItem extends StatelessWidget {
+class SettingsItemLogOut extends StatelessWidget {
   final String title;
   final String icon;
   final bool isAccount;
   final bool isDark;
 
-  const SettingsItem({
+  const SettingsItemLogOut({
     Key? key,
     required this.title,
     required this.icon,
@@ -54,10 +55,8 @@ class SettingsItem extends StatelessWidget {
             )
           : InkWell(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ProfileScreen()),
-                );
+                // Llamada a la función de cierre de sesión
+                Get.find<SettingsController>().logout();
               },
               child: Container(
                 width: 40.w,

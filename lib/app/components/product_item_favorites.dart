@@ -3,23 +3,23 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 
 import '../../utils/constants.dart';
-import '../data/models/product_model.dart';
+import '../data/models/product_favorites_model.dart'; // Importa el modelo correcto
 import '../modules/base/controllers/base_controller.dart';
 import '../routes/app_pages.dart';
 
-class ProductItem extends StatelessWidget {
-  final ProductModel product;
-  const ProductItem({Key? key, required this.product}) : super(key: key);
+class ProductItemFavorites extends StatelessWidget {
+  final FavItemModel product; // Usa el modelo de favoritos
+  const ProductItemFavorites({Key? key, required this.product})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-    print('Image URL: ${product.imagenes}');
+    print('Image URL: ${product.images}');
     return GestureDetector(
-      onTap: () => Get.toNamed(Routes.PRODUCT_DETAILS, arguments: product),
+      //onTap: () => Get.toNamed(Routes.PRODUCT_DETAILS, arguments: product),
       child: SizedBox(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,9 +35,9 @@ class ProductItem extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  right: product.product_id == 2 ? 0 : 20.w,
+                  right: product.favId == 2 ? 0 : 20.w,
                   bottom: -80.h,
-                  child: Image.network(product.imagenes![0], height: 260.h)
+                  child: Image.network(product.images![0], height: 260.h)
                       .animate()
                       .slideX(
                         duration: const Duration(milliseconds: 200),
@@ -49,19 +49,17 @@ class ProductItem extends StatelessWidget {
                   left: 15.w,
                   bottom: 20.h,
                   child: GetBuilder<BaseController>(
-                    id: 'FavoriteButton',
+                    id: 'FavoriteButtonDelete',
                     builder: (controller) => GestureDetector(
-                      onTap: () => controller.onFavoriteButtonPressed(
-                          productId: product.product_id!),
+                      onTap: () => controller.onFavoriteButtonPressedDelete(
+                        productId: product.favId!,
+                      ),
                       child: CircleAvatar(
                         radius: 18.r,
                         backgroundColor: Colors.white,
                         child: SvgPicture.asset(
-                          product.isFavorite!
-                              ? Constants.favFilledIcon
-                              : Constants.favOutlinedIcon,
-                          color:
-                              product.isFavorite! ? null : theme.primaryColor,
+                          Constants.favFilledIcon,
+                          color: theme.primaryColor,
                         ),
                       ),
                     ),
@@ -70,7 +68,7 @@ class ProductItem extends StatelessWidget {
               ],
             ),
             10.verticalSpace,
-            Text(product.name!, style: theme.textTheme.bodyMedium)
+            Text(product.productName!, style: theme.textTheme.bodyMedium)
                 .animate()
                 .fade()
                 .slideY(

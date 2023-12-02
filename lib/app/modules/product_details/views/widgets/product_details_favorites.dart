@@ -1,3 +1,7 @@
+import 'package:ecommerce_app/app/components/custom_button.dart';
+import 'package:ecommerce_app/app/modules/product_details/controllers/product_details_controller.dart';
+import 'package:ecommerce_app/app/modules/product_details/views/widgets/rounded_button.dart';
+import 'package:ecommerce_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,11 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 
-import '../../../../utils/constants.dart';
-import '../../../components/custom_button.dart';
-import '../controllers/product_details_controller.dart';
-import 'widgets/rounded_button.dart';
-import 'widgets/size_item.dart';
+
 
 class ProductDetailsView extends GetView<ProductDetailsController> {
   const ProductDetailsView({Key? key, String? productName}) : super(key: key);

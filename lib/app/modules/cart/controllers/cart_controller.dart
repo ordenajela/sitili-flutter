@@ -1,16 +1,21 @@
-import 'package:get/get.dart';
+// cart_controller.dart
 
-import '../../../../utils/dummy_helper.dart';
+import 'package:ecommerce_app/app/data/models/product_cart_model.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../../components/custom_snackbar.dart';
-import '../../../data/models/product_model.dart';
 import '../../base/controllers/base_controller.dart';
 
 class CartController extends GetxController {
-  // to hold the products in cart
-  List<ProductModel> products = [];
-
-  // to hold the total price of the cart products
-  var total = 0.0;
+  List<CartItemModel> products = [];
+  var total = 0.0.obs;
+  RxBool loading = true.obs;
+  Map<int, RxInt> selectedQuantities = {};
+  Map<int, RxDouble> selectedPrices = {};
+  static const int defaultQuantity = 1;
 
   @override
   void onInit() {
@@ -18,43 +23,176 @@ class CartController extends GetxController {
     super.onInit();
   }
 
-  /// when the user press on purchase now button
   onPurchaseNowPressed() {
     Get.find<BaseController>().changeScreen(0);
     CustomSnackBar.showCustomSnackBar(
-        title: 'Compra exitosa', message: 'Se ha realizado el pago');
+      title: 'Compra exitosa',
+      message: 'Se ha realizado el pago',
+    );
   }
 
-  /// when the user press on increase button
   onIncreasePressed(int productId) {
-    var product = DummyHelper.products.firstWhere((p) => p.id == productId);
-    product.quantity = product.quantity! + 1;
-    getCartProducts();
-    update(['ProductQuantity']);
-  }
+    try {
+      print('Tratando de aumentar la cantidad del producto con ID: $productId');
+      int index = products.indexWhere((p) => p.carId == productId);
 
-  /// when the user press on decrease button
-  onDecreasePressed(int productId) {
-    var product = DummyHelper.products.firstWhere((p) => p.id == productId);
-    if (product.quantity != 0) {
-      product.quantity = product.quantity! - 1;
-      getCartProducts();
-      update(['ProductQuantity']);
+      if (index != -1) {
+        var product = products[index];
+        selectedQuantities[productId] ??= RxInt(defaultQuantity);
+        selectedQuantities[productId]!.value++;
+        selectedPrices[productId] =
+            RxDouble(product.price * selectedQuantities[productId]!.value);
+
+        updateProductQuantityOnServer(
+            productId, selectedQuantities[productId]!.value);
+        updateTotalPrice();
+        update(['ProductQuantity', 'ProductPrice', 'TotalPrice']);
+        print(
+            'Aumentada la cantidad del producto con ID $productId. cantidad actual: ${selectedQuantities[productId]}, precio actual: ${selectedPrices[productId]}');
+      } else {
+        print('Producto con ID $productId no encontrado en la lista');
+      }
+    } catch (e) {
+      print('Error en onIncreasePressed: $e');
     }
   }
 
-  /// when the user press on delete icon
-  onDeletePressed(int productId) {
-    var product = DummyHelper.products.firstWhere((p) => p.id == productId);
-    product.quantity = 0;
-    getCartProducts();
+  onDecreasePressed(int productId) {
+    int index = products.indexWhere((p) => p.carId == productId);
+    if (index != -1 && (selectedQuantities[productId]?.value ?? 0) > 0) {
+      selectedQuantities[productId]!.value--;
+      selectedPrices[productId] = RxDouble(
+          products[index].price * selectedQuantities[productId]!.value);
+
+      updateProductQuantityOnServer(
+          productId, selectedQuantities[productId]!.value);
+      updateTotalPrice();
+      update(['ProductQuantity', 'ProductPrice', 'TotalPrice']);
+    }
   }
 
-  /// get the cart products from the product list
-  getCartProducts() {
-    products = DummyHelper.products.where((p) => p.quantity! > 0).toList();
-    // calculate the total price
-    total = products.fold<double>(0, (p, c) => p + c.price! * c.quantity!);
-    update();
+  Future<void> updateProductQuantityOnServer(
+      int productId, int quantity) async {
+    // Aquí debes enviar una solicitud al servidor para actualizar la cantidad
+    // Puedes usar http package o cualquier otro método que prefieras
+    // Ejemplo (requiere import 'package:http/http.dart' as http;):
+    // final response = await http.post(
+    //   Uri.parse('tu_url_de_actualizacion'),
+    //   body: {'product_id': productId.toString(), 'quantity': quantity.toString()},
+    // );
+    // Verifica la respuesta y maneja cualquier error según sea necesario
+  }
+
+  onDeletePressed(int productId) async {
+    try {
+      // Elimina el producto del servidor
+      await deleteProductOnServer(productId);
+
+      // Elimina el producto localmente
+      int index = products.indexWhere((p) => p.carId == productId);
+      if (index != -1) {
+        double removedProductPrice =
+            products[index].price * selectedQuantities[productId]!.value;
+        products.removeAt(index);
+        selectedQuantities.remove(productId);
+
+        // Actualiza el precio total restando el precio del producto eliminado
+        total.value -= removedProductPrice;
+
+        // Actualiza la vista
+        update(['TotalPrice']);
+        update();
+      }
+    } catch (e) {
+      print('Error en onDeletePressed: $e');
+    }
+  }
+
+  Future<void> deleteProductOnServer(int productId) async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final String? userToken = prefs.getString('userToken');
+
+      if (userToken == null) {
+        print('Usuario no autenticado');
+
+        return;
+      }
+
+      final baseUrl = 'http://localhost:8090';
+      final response = await http.delete(
+        Uri.parse('$baseUrl/shoppingCar/delete'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $userToken',
+        },
+        body: jsonEncode({'id': productId}),
+      );
+
+      if (response.statusCode == 200) {
+        print('Producto eliminado con éxito');
+      } else {
+        print(
+            'Error al eliminar el producto. Código de estado: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error en deleteProductOnServer: $e');
+    }
+  }
+
+  void updateTotalPrice() {
+    total.value = products.fold<double>(
+        0, (p, c) => p + c.price * selectedQuantities[c.carId]!.value);
+    update(['TotalPrice']);
+  }
+
+  Future<void> getCartProducts() async {
+    try {
+      loading.value = true;
+
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final String? userToken = prefs.getString('userToken');
+
+      if (userToken == null) {
+        print('Usuario no autenticado');
+        return;
+      }
+
+      final baseUrl = 'http://localhost:8090';
+
+      final response = await http.get(
+        Uri.parse('$baseUrl/shoppingCar/list'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $userToken',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final List<dynamic> cartItems = json.decode(response.body);
+
+        products = cartItems.map((item) {
+          return CartItemModel.fromJson(item);
+        }).toList();
+
+        for (var product in products) {
+          selectedQuantities[product.carId] = RxInt(defaultQuantity);
+          selectedPrices[product.carId] = RxDouble(product.price);
+        }
+
+        total.value = products.fold<double>(
+            0, (p, c) => p + c.price * selectedQuantities[c.carId]!.value);
+
+        loading.value = false;
+        update();
+      } else {
+        print(
+            'Error al obtener los productos del carrito. Código de estado: ${response.statusCode}');
+        throw Exception('Error al obtener los productos del carrito');
+      }
+    } catch (e) {
+      print('Error al obtener los productos del carrito: $e');
+      throw Exception('Error al obtener los productos del carrito');
+    }
   }
 }

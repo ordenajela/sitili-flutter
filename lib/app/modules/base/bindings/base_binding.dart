@@ -1,3 +1,5 @@
+import 'package:ecommerce_app/app/modules/profile/controllers/profile_controller.dart';
+import 'package:ecommerce_app/app/modules/profile/views/update_profile.dart';
 import 'package:get/get.dart';
 import '../../cart/controllers/cart_controller.dart';
 import '../../favorites/controllers/favorites_controller.dart';
@@ -15,5 +17,7 @@ class BaseBinding extends Bindings {
     Get.lazyPut<CartController>(() => CartController());
     Get.lazyPut<NotificationsController>(() => NotificationsController());
     Get.lazyPut<SettingsController>(() => SettingsController());
+    Get.lazyPut<ProfileController>(() => ProfileController());
+    
   }
 }

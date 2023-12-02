@@ -1,7 +1,44 @@
-import 'package:ecommerce_app/app/modules/login/views/login_screen.dart';
-import 'package:email_validator/email_validator.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:email_validator/email_validator.dart';
+import 'package:ecommerce_app/app/modules/login/views/login_screen.dart';
+import 'package:ecommerce_app/app/routes/app_pages.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+class AuthService {
+  static Future<Map<String, dynamic>> signUp({
+    required String email,
+    required String password,
+    required String firstName,
+    required String lastName,
+  }) async {
+    try {
+      final response = await http.post(
+        Uri.parse('http://localhost:8090/registerNewUser'),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          'email': email,
+          'password': password,
+          'first_name': firstName,
+          'last_name': lastName,
+          'role': 4,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        return json.decode(response.body);
+      } else {
+        throw Exception('Error en la solicitud de registro: ${response.body}');
+      }
+    } catch (error) {
+      throw Exception('Error en la solicitud de registro: $error');
+    }
+  }
+}
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key, required this.title}) : super(key: key);
@@ -13,7 +50,42 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
-  var rememberValue = false;
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  Future<void> _signUp() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        final Map<String, dynamic> responseData = await AuthService.signUp(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim(),
+          firstName: firstNameController.text.trim(),
+          lastName: lastNameController.text.trim(),
+        );
+
+        final String token = responseData['jwtToken'];
+
+        print('Registro exitoso');
+        print('El token: $token');
+
+       
+        await _saveUserCredentials(token, emailController.text.trim());
+
+        Get.offNamed(Routes.BASE);
+      } catch (error) {
+        print('Error en el registro: ${error.toString()}');
+        
+      }
+    }
+  }
+
+  Future<void> _saveUserCredentials(String token, String email) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('userToken', token);
+    prefs.setString('userEmail', email);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +98,7 @@ class _RegisterPageState extends State<RegisterPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'Sign up',
+              'Registro',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 40,
@@ -43,12 +115,13 @@ class _RegisterPageState extends State<RegisterPage> {
                     children: [
                       Expanded(
                         child: TextFormField(
-                          validator: (value) => EmailValidator.validate(value!)
-                              ? null
-                              : "Please enter a valid email",
+                          controller: firstNameController,
+                          validator: (value) => value!.isEmpty
+                              ? "Este campo es obligatorio"
+                              : null,
                           maxLines: 1,
                           decoration: InputDecoration(
-                            hintText: 'First name',
+                            hintText: 'Nombre',
                             prefixIcon: const Icon(Icons.person),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -61,12 +134,13 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       Expanded(
                         child: TextFormField(
-                          validator: (value) => EmailValidator.validate(value!)
-                              ? null
-                              : "Please enter a valid email",
+                          controller: lastNameController,
+                          validator: (value) => value!.isEmpty
+                              ? "Este campo es obligatorio"
+                              : null,
                           maxLines: 1,
                           decoration: InputDecoration(
-                            hintText: 'Last name',
+                            hintText: 'Apellido',
                             prefixIcon: const Icon(Icons.person),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -80,12 +154,13 @@ class _RegisterPageState extends State<RegisterPage> {
                     height: 20,
                   ),
                   TextFormField(
+                    controller: emailController,
                     validator: (value) => EmailValidator.validate(value!)
                         ? null
-                        : "Please enter a valid email",
+                        : "Ingrese un email válido",
                     maxLines: 1,
                     decoration: InputDecoration(
-                      hintText: 'Enter your email',
+                      hintText: 'Email',
                       prefixIcon: const Icon(Icons.email),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -96,9 +171,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     height: 20,
                   ),
                   TextFormField(
+                    controller: passwordController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your password';
+                        return 'Este campo es obligatorio';
                       }
                       return null;
                     },
@@ -106,7 +182,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     obscureText: true,
                     decoration: InputDecoration(
                       prefixIcon: const Icon(Icons.lock),
-                      hintText: 'Enter your password',
+                      hintText: 'Contraseña',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -116,14 +192,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     height: 20,
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {}
-                    },
+                    onPressed: _signUp,
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.fromLTRB(40, 15, 40, 15),
                     ),
                     child: const Text(
-                      'Sign up',
+                      'Registrarse',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -135,7 +209,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text('Already registered?'),
+                      const Text('¿Ya tienes una cuenta?'),
                       TextButton(
                         onPressed: () {
                           Navigator.pushReplacement(
@@ -146,7 +220,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                           );
                         },
-                        child: const Text('Sign in'),
+                        child: const Text('Ingresar'),
                       ),
                     ],
                   ),

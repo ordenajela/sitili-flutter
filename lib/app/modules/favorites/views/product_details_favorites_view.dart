@@ -1,3 +1,5 @@
+import 'package:ecommerce_app/app/modules/product_details/controllers/product_details_controller.dart';
+import 'package:ecommerce_app/app/modules/product_details/views/widgets/rounded_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,12 +9,10 @@ import 'package:get/get.dart';
 
 import '../../../../utils/constants.dart';
 import '../../../components/custom_button.dart';
-import '../controllers/product_details_controller.dart';
-import 'widgets/rounded_button.dart';
-import 'widgets/size_item.dart';
 
-class ProductDetailsView extends GetView<ProductDetailsController> {
-  const ProductDetailsView({Key? key, String? productName}) : super(key: key);
+
+class ProductDetailsFavoritesView extends GetView<ProductDetailsController> {
+  const ProductDetailsFavoritesView({Key? key, String? productName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +142,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
               10.verticalSpace,
               Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  child: Text(controller.product.reviews.toString())),
+                  child: Text(controller.product.description.toString())),
               20.verticalSpace,
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30.w),
