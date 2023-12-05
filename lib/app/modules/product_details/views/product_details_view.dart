@@ -114,11 +114,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                           fontSize: 18.sp, fontWeight: FontWeight.bold),
                     ),
                     5.horizontalSpace,
-                    // Text(
-                    //   '(${controller.product.reviews!})',
-                    //   style:
-                    //       theme.textTheme.bodyMedium?.copyWith(fontSize: 16.sp),
-                    // ),
+                  
                   ],
                 ).animate().fade().slideX(
                       duration: const Duration(milliseconds: 300),

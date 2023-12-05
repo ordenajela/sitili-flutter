@@ -1,10 +1,8 @@
-// cart_view.dart
-
+import 'package:ecommerce_app/app/components/address_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:get/get.dart';
 
 import '../../../../utils/constants.dart';
@@ -20,6 +18,8 @@ class CartView extends GetView<CartController> {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
+
+
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -105,13 +105,44 @@ class CartView extends GetView<CartController> {
                     ),
               ),
               30.verticalSpace,
+              // Visibility(
+              //   visible: controller.products.isNotEmpty,
+              //   child: Padding(
+              //     padding: EdgeInsets.symmetric(horizontal: 30.w),
+              //     child: CustomButton(
+              //       text: 'Comprar',
+              //       onPressed: () => controller.onPurchaseNowPressed(),
+              //       fontSize: 16.sp,
+              //       radius: 12.r,
+              //       verticalPadding: 12.h,
+              //       hasShadow: true,
+              //       shadowColor: theme.primaryColor,
+              //       shadowOpacity: 0.3,
+              //       shadowBlurRadius: 4,
+              //       shadowSpreadRadius: 0,
+              //     ).animate().fade().slideY(
+              //           duration: const Duration(milliseconds: 300),
+              //           begin: 1,
+              //           curve: Curves.easeInSine,
+              //         ),
+              //   ),
+              // ),
+              // 30.verticalSpace,
+              // Agregamos un botón para abrir el modal bottom sheet con el formulario de dirección
               Visibility(
                 visible: controller.products.isNotEmpty,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30.w),
                   child: CustomButton(
                     text: 'Comprar',
-                    onPressed: () => controller.onPurchaseNowPressed(),
+                    onPressed: () {
+                      // Navegar a la pantalla del formulario
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AddressForm()),
+                      );
+                    },
                     fontSize: 16.sp,
                     radius: 12.r,
                     verticalPadding: 12.h,

@@ -17,7 +17,6 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-    print('Image URL: ${product.imagenes}');
     return GestureDetector(
       onTap: () => Get.toNamed(Routes.PRODUCT_DETAILS, arguments: product),
       child: SizedBox(

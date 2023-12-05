@@ -23,12 +23,39 @@ class CartController extends GetxController {
     super.onInit();
   }
 
-  onPurchaseNowPressed() {
-    Get.find<BaseController>().changeScreen(0);
-    CustomSnackBar.showCustomSnackBar(
-      title: 'Compra exitosa',
-      message: 'Se ha realizado el pago',
-    );
+  Future<void> updateProductQuantityOnServer(
+      int productId, int quantity) async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final String? userToken = prefs.getString('userToken');
+
+      if (userToken == null || userToken.isEmpty) {
+        print('User token not available');
+        return;
+      }
+
+      final response = await http.put(
+        Uri.parse('http://localhost:8090/shoppingCar/update'),
+        headers: {
+          'Authorization': 'Bearer $userToken',
+          'Content-Type': 'application/json',
+        },
+        body: json.encode({
+          'id': productId,
+          'quantity': quantity,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        print('Cantidad actualizada en el servidor');
+      } else {
+        print(
+            'Error al actualizar la cantidad en el servidor. Código de estado: ${response.statusCode}');
+        print('Detalles de la respuesta: ${response.body}');
+      }
+    } catch (e) {
+      print('Error en updateProductQuantityOnServer: $e');
+    }
   }
 
   onIncreasePressed(int productId) {
@@ -46,7 +73,8 @@ class CartController extends GetxController {
         updateProductQuantityOnServer(
             productId, selectedQuantities[productId]!.value);
         updateTotalPrice();
-        update(['ProductQuantity', 'ProductPrice', 'TotalPrice']);
+        update();
+
         print(
             'Aumentada la cantidad del producto con ID $productId. cantidad actual: ${selectedQuantities[productId]}, precio actual: ${selectedPrices[productId]}');
       } else {
@@ -67,20 +95,13 @@ class CartController extends GetxController {
       updateProductQuantityOnServer(
           productId, selectedQuantities[productId]!.value);
       updateTotalPrice();
-      update(['ProductQuantity', 'ProductPrice', 'TotalPrice']);
-    }
-  }
+      update(); // Actualiza todas las partes de la vista
 
-  Future<void> updateProductQuantityOnServer(
-      int productId, int quantity) async {
-    // Aquí debes enviar una solicitud al servidor para actualizar la cantidad
-    // Puedes usar http package o cualquier otro método que prefieras
-    // Ejemplo (requiere import 'package:http/http.dart' as http;):
-    // final response = await http.post(
-    //   Uri.parse('tu_url_de_actualizacion'),
-    //   body: {'product_id': productId.toString(), 'quantity': quantity.toString()},
-    // );
-    // Verifica la respuesta y maneja cualquier error según sea necesario
+      // Verifica si la cantidad ha llegado a cero y elimina el producto del carrito
+      if (selectedQuantities[productId]!.value == 0) {
+        onDeletePressed(productId);
+      }
+    }
   }
 
   onDeletePressed(int productId) async {
@@ -170,7 +191,7 @@ class CartController extends GetxController {
 
       if (response.statusCode == 200) {
         final List<dynamic> cartItems = json.decode(response.body);
-
+        print('carritooo: ${response.body}');
         products = cartItems.map((item) {
           return CartItemModel.fromJson(item);
         }).toList();

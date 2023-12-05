@@ -35,20 +35,19 @@ class ProfileController extends GetxController {
         headers: {'Authorization': 'Bearer $userToken'},
       );
 
-      print('Response status code: ${response.statusCode}');
-      print('Response body: ${response.body}');
+   
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body);
         userInfo =
-            UserModel.fromJson(data); // Asigna la información del usuario
+            UserModel.fromJson(data); 
         return userInfo!;
       } else {
         throw Exception('Failed to fetch data');
       }
     } catch (e) {
       print('Error fetching data: $e');
-      // Puedes manejar el error según tus necesidades
+    
       throw Exception('Failed to fetch data');
     }
   }
@@ -65,17 +64,17 @@ class ProfileController extends GetxController {
     return userInfo?.roleId ?? '';
   }
 
-  // Método para realizar la solicitud HTTP y imprimir la información
+
   Future<void> fetchDataFromUrl() async {
     try {
-      await getUserInfo(); // Asegura que la información del usuario esté cargada
-      // Realiza otras acciones si es necesario
+      await getUserInfo();
+
     } catch (e) {
       print('Error fetching data: $e');
     }
   }
 
-  // Método para cambiar el tema
+
   changeTheme(bool value) {
     MyTheme.changeTheme();
     isLightTheme = MySharedPref.getThemeIsLight();

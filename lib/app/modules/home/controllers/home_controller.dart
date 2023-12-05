@@ -25,9 +25,6 @@ class HomeController extends GetxController {
         Uri.parse('http://localhost:8090/product/listAll'),
         headers: {'Authorization': 'Bearer $userToken'},
       );
-      // print(checkConnectivity());
-      // print('Response status code: ${response.statusCode}');
-      // print('Response body home: ${response.body}');
 
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);

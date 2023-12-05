@@ -1,4 +1,4 @@
-// views/home/home_view.dart
+
 import 'package:ecommerce_app/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,7 +18,7 @@ class HomeView extends GetView<HomeController> {
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: FutureBuilder<void>(
-          // Use FutureBuilder to wait for obtenerProductos to complete
+     
           future: controller.obtenerProductos(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {

@@ -23,5 +23,5 @@ abstract class _Paths {
   static const NOTIFICATIONS = '/notifications';
   static const SETTINGS = '/settings';
   static const PRODUCT_DETAILS = '/product-details';
-  static const PRODUCT_DETAILS_FAVORITE = '/product-details-favorite'; // Nueva ruta
+  static const PRODUCT_DETAILS_FAVORITE = '/product-details-favorite';
 }

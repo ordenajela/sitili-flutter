@@ -9,7 +9,7 @@ import '../../../../../utils/constants.dart';
 import '../../controllers/cart_controller.dart';
 
 class CartItem extends GetView<CartController> {
-  final CartItemModel product; // Cambia ProductModel a CartItemModel
+  final CartItemModel product; 
 
   const CartItem({
     Key? key,
@@ -50,7 +50,7 @@ class CartItem extends GetView<CartController> {
             children: [
               5.verticalSpace,
               Text(
-                product.productName, 
+                product.productName,
                 style: theme.textTheme.displayMedium,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -73,7 +73,7 @@ class CartItem extends GetView<CartController> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   GestureDetector(
-                    onTap: () => controller.onIncreasePressed(product.carId),
+                    onTap: () => {controller.onIncreasePressed(product.carId), },
                     child: SvgPicture.asset(Constants.decreaseIcon),
                   ),
                   10.horizontalSpace,
@@ -83,7 +83,7 @@ class CartItem extends GetView<CartController> {
                       )),
                   10.horizontalSpace,
                   GestureDetector(
-                    onTap: () => controller.onDecreasePressed(product.carId),
+                    onTap: () => {controller.onDecreasePressed(product.carId), },
                     child: SvgPicture.asset(Constants.increaseIcon),
                   ),
                 ],

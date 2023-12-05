@@ -14,6 +14,8 @@ dependencies:
   carousel_slider: ^4.2.1
   cached_network_image: ^3.0.0
   connectivity: ^3.0.6
+  flutter_credit_card: ^4.0.1
+  dio: ^4.0.0
   flutter_launcher_icons: 
   change_app_package_name: 
   rename_app: 
