@@ -10,9 +10,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await MySharedPref.init();
 
-  // Manually initialize bindings
-  // BaseBinding().dependencies();
-
   runApp(
     ScreenUtilInit(
       designSize: const Size(375, 812),

@@ -16,7 +16,10 @@ class ProfileController extends GetxController {
   void onInit() {
     super.onInit();
     fetchDataFromUrl();
+ 
   }
+
+ 
 
   UserModel? userInfo;
 
@@ -35,19 +38,16 @@ class ProfileController extends GetxController {
         headers: {'Authorization': 'Bearer $userToken'},
       );
 
-   
-
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body);
-        userInfo =
-            UserModel.fromJson(data); 
+        userInfo = UserModel.fromJson(data);
         return userInfo!;
       } else {
         throw Exception('Failed to fetch data');
       }
     } catch (e) {
       print('Error fetching data: $e');
-    
+
       throw Exception('Failed to fetch data');
     }
   }
@@ -64,16 +64,13 @@ class ProfileController extends GetxController {
     return userInfo?.roleId ?? '';
   }
 
-
   Future<void> fetchDataFromUrl() async {
     try {
       await getUserInfo();
-
     } catch (e) {
       print('Error fetching data: $e');
     }
   }
-
 
   changeTheme(bool value) {
     MyTheme.changeTheme();

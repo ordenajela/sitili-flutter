@@ -43,7 +43,7 @@ class ProfileScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: [
-                    // -- IMAGE
+                   
                     Stack(
                       children: [
                         SizedBox(
@@ -87,7 +87,7 @@ class ProfileScreen extends StatelessWidget {
 
                     const SizedBox(height: 20),
 
-                    // -- BUTTON
+        
                     SizedBox(
                       width: 200,
                       child: ElevatedButton(
@@ -106,17 +106,14 @@ class ProfileScreen extends StatelessWidget {
                     const Divider(),
                     const SizedBox(height: 10),
 
-                    // -- MENU
+                   
                     ProfileMenuWidget(
-                        title: 'Mis compras',
-                        icon: Icons.account_balance_wallet,
-                        onPress: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => OrdersView()),
-                          );
-                        }),
+                      title: 'Mis compras',
+                      icon: Icons.account_balance_wallet,
+                      onPress: () {
+                        Get.to(OrdersView());
+                      },
+                    ),
                   ],
                 ),
               ),

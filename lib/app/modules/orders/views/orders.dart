@@ -38,7 +38,6 @@ class OrdersView extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 20),
-              // ListView.builder para construir dinámicamente las tarjetas
               ListView.builder(
                 shrinkWrap: true,
                 itemCount: controller.ordersList.length,
@@ -46,7 +45,6 @@ class OrdersView extends StatelessWidget {
                   final order = controller.ordersList[index];
                   return GestureDetector(
                     onTap: () {
-                      // Al hacer clic en la tarjeta, llama al método para obtener detalles de la orden
                       _ordersController
                           .fetchOrderDetails(order['id'].toString());
                     },
@@ -66,15 +64,20 @@ class OrdersView extends StatelessWidget {
                   );
                 },
               ),
-
               SizedBox(height: 30),
-
-              ElevatedButton(
+              CustomButton(
+                text: 'Actuallizar',
                 onPressed: () {
-                  // Invocar el método del controlador para realizar la petición HTTP
                   _ordersController.fetchOrdersData();
                 },
-                child: Text('Actualizar'),
+                fontSize: 16.sp,
+                radius: 12.r,
+                verticalPadding: 12.h,
+                hasShadow: true,
+                shadowColor: theme.primaryColor,
+                shadowOpacity: 0.3,
+                shadowBlurRadius: 4,
+                shadowSpreadRadius: 0,
               ),
             ],
           ),
@@ -84,12 +87,10 @@ class OrdersView extends StatelessWidget {
   }
 }
 
-// Widget para agregar espacio vertical
 extension SizedBoxExtension on double {
   SizedBox get verticalSpace => SizedBox(height: this);
 }
 
-// Widget para agregar espacio horizontal
 extension SizedBoxWidthExtension on double {
   SizedBox get horizontalSpace => SizedBox(width: this);
 }

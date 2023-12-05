@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/app/modules/admin/bindings/AdminHomeBinding.dart';
 import 'package:ecommerce_app/app/modules/admin/navigator/AdminHomeView.dart';
+import 'package:ecommerce_app/app/modules/orders/views/widgets/orders_details.dart';
 import 'package:ecommerce_app/app/modules/seller/bindings/SellerHomeBinding.dart';
 import 'package:ecommerce_app/app/modules/seller/navigator/SellerHomeView.dart';
 import 'package:get/get.dart';
@@ -38,7 +39,7 @@ class AppPages {
       name: _Paths.BASE,
       page: () => const BaseView(),
       binding: BaseBinding(),
-    ), 
+    ),
     GetPage(
       name: _Paths.ADMIN_HOME,
       page: () =>
@@ -83,7 +84,5 @@ class AppPages {
       transition: Transition.rightToLeft,
       transitionDuration: const Duration(milliseconds: 250),
     ),
-   
   ];
 }
-

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ecommerce_app/app/modules/cart/controllers/cart_controller.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -126,7 +127,8 @@ class PaymentController extends GetxController {
       if (response.statusCode == 200) {
         // Procesa la respuesta según tus necesidades
         print('Pedido realizado exitosamente');
-
+        final CartController cartController = Get.find();
+        cartController.getCartProducts();
         // Puedes realizar acciones adicionales aquí si es necesario
       } else {
         // Maneja el caso en que la solicitud no fue exitosa

@@ -1,4 +1,7 @@
 import 'package:ecommerce_app/app/components/custom_button.dart';
+import 'package:ecommerce_app/app/components/custom_button_pay.dart';
+import 'package:ecommerce_app/app/modules/base/views/base_view.dart';
+import 'package:ecommerce_app/app/modules/cart/controllers/cart_controller.dart';
 import 'package:ecommerce_app/app/modules/cart/controllers/payment_controller.dart';
 import 'package:ecommerce_app/app/modules/orders/views/orders.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +27,9 @@ class _PaymentFormState extends State<PaymentForm> {
   TextEditingController cvvCodeController = TextEditingController();
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  // Variable de estado para controlar la habilitación del botón de "Pagar"
+  bool isPaymentButtonEnabled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -144,6 +150,11 @@ class _PaymentFormState extends State<PaymentForm> {
                     expiryDate: expiryDateController.text,
                     cvvCode: cvvCodeController.text,
                   );
+
+                  // Habilita el botón de "Pagar"
+                  setState(() {
+                    isPaymentButtonEnabled = true;
+                  });
                 },
                 fontSize: 16.sp,
                 radius: 12.r,
@@ -154,19 +165,22 @@ class _PaymentFormState extends State<PaymentForm> {
                 shadowBlurRadius: 4,
                 shadowSpreadRadius: 0,
               ),
-              CustomButton(
+              CustomButtonPay(
                 text: 'Pagar',
-                onPressed: () {
-                  // Obtén una referencia al PaymentController
-                  final PaymentController paymentController = Get.find();
+                onPressed: isPaymentButtonEnabled
+                    ? () {
+                        // Obtén una referencia al PaymentController
+                        final PaymentController paymentController = Get.find();
 
-                  paymentController.makeOrderSaleCar();
+                        paymentController.makeOrderSaleCar();
 
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => OrdersView()),
-                  );
-                },
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => BaseView()),
+                        );
+                       
+                      }
+                    : null,
                 fontSize: 16.sp,
                 radius: 12.r,
                 verticalPadding: 12.h,
@@ -175,6 +189,8 @@ class _PaymentFormState extends State<PaymentForm> {
                 shadowOpacity: 0.3,
                 shadowBlurRadius: 4,
                 shadowSpreadRadius: 0,
+                disabled: !isPaymentButtonEnabled,
+                disabledColor: Colors.grey,
               ),
             ],
           ),

@@ -16,11 +16,60 @@ class CartController extends GetxController {
   Map<int, RxInt> selectedQuantities = {};
   Map<int, RxDouble> selectedPrices = {};
   static const int defaultQuantity = 1;
-
+  dynamic responseData;
   @override
-  void onInit() {
-    //getCartProducts();
+  void onInit() async {
+    // Fetch user data
+    await fetchDataUserList();
+
+    // Check if the user ID is 3
+    if (_isUserIdEqualToThree()) {
+      // Execute the logic only if the user ID is 3
+      await getCartProducts();
+    }
+
     super.onInit();
+  }
+
+  bool _isUserIdEqualToThree() {
+    // Assuming responseData is the user data obtained from fetchDataUserList
+    return responseData != null && responseData['id'] == 3;
+  }
+
+  Future<void> fetchDataUserList() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? userToken = prefs.getString('userToken');
+
+    if (userToken == null || userToken.isEmpty) {
+      print('User token not available');
+      return;
+    }
+
+    final url = Uri.parse('http://localhost:8090/dataUser/listu');
+
+    try {
+      final response = await http.get(
+        url,
+        headers: {
+          'Authorization': 'Bearer $userToken',
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        // Handle the response data here
+        responseData = json
+            .decode(response.body); // Assuming responseData is a class variable
+        // Print or process the data according to your requirements
+        print('Data User List: $responseData');
+      } else {
+        // Handle other status codes if needed
+        print('Error in the request. Status code: ${response.statusCode}');
+      }
+    } catch (error) {
+      // Handle connection errors
+      print('Connection error: $error');
+    }
   }
 
   Future<void> updateProductQuantityOnServer(
