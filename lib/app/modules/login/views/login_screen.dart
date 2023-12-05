@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:ecommerce_app/app/modules/cart/controllers/cart_controller.dart';
 import 'package:ecommerce_app/app/modules/login/views/register_screen.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,23 @@ class AuthService {
     }
   }
 }
+void _redirectToRoleScreen(String roleName) {
+  switch (roleName) {
+    case 'User':
+      Get.offNamed(Routes.BASE);
+
+      break;
+    case 'Admin':
+      Get.offNamed(Routes.ADMIN_HOME); // Cambia a la ruta ADMIN_HOME
+      break;
+    case 'Seller':
+      Get.offNamed(Routes.SELLER_HOME); // Cambia a la ruta SELLER_HOME
+      break;
+    default:
+      // Manejar caso predeterminado o mostrar un mensaje de error
+      break;
+  }
+}
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key, required this.title}) : super(key: key);
@@ -65,8 +83,8 @@ class _LoginPageState extends State<LoginPage> {
         // Save token and email to shared preferences
         await _saveUserCredentials(token, emailController.text.trim());
 
-        // Redirige a la vista HomeView si la autenticación es exitosa.
-        Get.offNamed(Routes.BASE);
+        _redirectToRoleScreen(roleName);
+
       } catch (error) {
         print('Error al iniciar sesión: ${error.toString()}');
         // Puedes manejar el error de inicio de sesión según tus necesidades.

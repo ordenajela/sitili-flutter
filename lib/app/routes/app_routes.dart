@@ -4,6 +4,9 @@ abstract class Routes {
   Routes._();
   static const SPLASH = _Paths.SPLASH;
   static const BASE = _Paths.BASE;
+   static const ADMIN_HOME = _Paths.ADMIN_HOME;
+    static const SELLER_HOME = _Paths.SELLER_HOME;
+  
   static const HOME = _Paths.HOME;
   static const FAVORITES = _Paths.FAVORITES;
   static const CART = _Paths.CART;
@@ -24,4 +27,6 @@ abstract class _Paths {
   static const SETTINGS = '/settings';
   static const PRODUCT_DETAILS = '/product-details';
   static const PRODUCT_DETAILS_FAVORITE = '/product-details-favorite';
+  static const ADMIN_HOME = '/admin-home';
+  static const SELLER_HOME = '/seller-home';
 }

@@ -1,3 +1,7 @@
+import 'package:ecommerce_app/app/modules/admin/bindings/AdminHomeBinding.dart';
+import 'package:ecommerce_app/app/modules/admin/views/AdminHomeView.dart';
+import 'package:ecommerce_app/app/modules/seller/bindings/SellerHomeBinding.dart';
+import 'package:ecommerce_app/app/modules/seller/views/SellerHomeView.dart';
 import 'package:get/get.dart';
 
 import '../modules/base/bindings/base_binding.dart';
@@ -34,6 +38,18 @@ class AppPages {
       name: _Paths.BASE,
       page: () => const BaseView(),
       binding: BaseBinding(),
+    ), 
+    GetPage(
+      name: _Paths.ADMIN_HOME,
+      page: () =>
+          AdminHomeView(), // Usa la vista correspondiente para el rol "admin"
+      binding: AdminHomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.SELLER_HOME,
+      page: () =>
+          SellerHomeView(), // Usa la vista correspondiente para el rol "seller"
+      binding: SellerHomeBinding(),
     ),
     GetPage(
       name: _Paths.HOME,
@@ -67,5 +83,7 @@ class AppPages {
       transition: Transition.rightToLeft,
       transitionDuration: const Duration(milliseconds: 250),
     ),
+   
   ];
 }
+
