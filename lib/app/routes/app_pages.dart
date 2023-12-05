@@ -1,7 +1,7 @@
 import 'package:ecommerce_app/app/modules/admin/bindings/AdminHomeBinding.dart';
-import 'package:ecommerce_app/app/modules/admin/views/AdminHomeView.dart';
+import 'package:ecommerce_app/app/modules/admin/navigator/AdminHomeView.dart';
 import 'package:ecommerce_app/app/modules/seller/bindings/SellerHomeBinding.dart';
-import 'package:ecommerce_app/app/modules/seller/views/SellerHomeView.dart';
+import 'package:ecommerce_app/app/modules/seller/navigator/SellerHomeView.dart';
 import 'package:get/get.dart';
 
 import '../modules/base/bindings/base_binding.dart';

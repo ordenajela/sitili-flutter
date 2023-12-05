@@ -1,10 +1,9 @@
-
+import 'package:ecommerce_app/app/modules/admin/controllers/admin_controller.dart';
 import 'package:get/get.dart';
 
 class AdminHomeBinding extends Bindings {
   @override
   void dependencies() {
-
-    // Puedes agregar más dependencias según sea necesario
+    Get.lazyPut<AdminController>(() => AdminController());
   }
 }
