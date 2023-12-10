@@ -19,8 +19,16 @@ class CartView extends GetView<CartController> {
   Widget build(BuildContext context) {
     final theme = context.theme;
 
-
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Mi carrito',
+          style: TextStyle(color: Colors.white),
+        ),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: theme.primaryColor,
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: GetBuilder<CartController>(
@@ -139,8 +147,7 @@ class CartView extends GetView<CartController> {
                       // Navegar a la pantalla del formulario
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => AddressForm()),
+                        MaterialPageRoute(builder: (context) => AddressForm()),
                       );
                     },
                     fontSize: 16.sp,

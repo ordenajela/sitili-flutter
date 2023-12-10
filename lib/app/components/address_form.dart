@@ -29,6 +29,22 @@ class _AddressFormState extends State<AddressForm> {
   Widget build(BuildContext context) {
     final theme = context.theme;
     return Scaffold(
+       appBar: AppBar(
+        title: Text(
+          'Dirección',
+          style: TextStyle(color: Colors.white),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            // Agrega la lógica para retroceder aquí
+            Get.back();
+          },
+        ),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: theme.primaryColor,
+      ),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(16.0),

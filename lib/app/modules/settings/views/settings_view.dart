@@ -16,6 +16,15 @@ class SettingsView extends GetView<SettingsController> {
   Widget build(BuildContext context) {
     final theme = context.theme;
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Configuración',
+          style: TextStyle(color: Colors.white),
+        ),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: theme.primaryColor,
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: ListView(
@@ -40,7 +49,7 @@ class SettingsView extends GetView<SettingsController> {
             30.verticalSpace,
             Text('Configuraciones',
                 style: theme.textTheme.displayMedium?.copyWith(
-                  fontSize: 20.sp, 
+                  fontSize: 20.sp,
                   fontWeight: FontWeight.normal,
                 )),
             20.verticalSpace,

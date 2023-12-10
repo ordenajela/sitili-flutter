@@ -18,26 +18,21 @@ class OrdersView extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Mis compras',
+          style: TextStyle(color: Colors.white),
+        ),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: theme.primaryColor,
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: GetBuilder<OrdersController>(
           builder: (controller) => ListView(
             children: [
               SizedBox(height: 30),
-              Row(
-                children: [
-                  const ScreenTitle(
-                    title: 'Ordernes',
-                  ),
-                  Spacer(),
-                  RoundedButton(
-                    onPressed: () => Get.back(),
-                    child: SvgPicture.asset(Constants.backArrowIcon,
-                        fit: BoxFit.none),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
               ListView.builder(
                 shrinkWrap: true,
                 itemCount: controller.ordersList.length,

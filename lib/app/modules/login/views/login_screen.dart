@@ -1,8 +1,9 @@
 import 'dart:convert';
-import 'package:ecommerce_app/app/modules/cart/controllers/cart_controller.dart';
+import 'package:ecommerce_app/app/components/custom_button.dart';
 import 'package:ecommerce_app/app/modules/login/views/register_screen.dart';
-import 'package:email_validator/email_validator.dart';
+import 'package:ecommerce_app/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 import 'package:ecommerce_app/app/routes/app_pages.dart';
 import 'package:get/get.dart';
@@ -34,11 +35,11 @@ class AuthService {
     }
   }
 }
+
 void _redirectToRoleScreen(String roleName) {
   switch (roleName) {
     case 'User':
       Get.offNamed(Routes.BASE);
-
       break;
     case 'Admin':
       Get.offNamed(Routes.ADMIN_HOME); // Cambia a la ruta ADMIN_HOME
@@ -84,7 +85,6 @@ class _LoginPageState extends State<LoginPage> {
         await _saveUserCredentials(token, emailController.text.trim());
 
         _redirectToRoleScreen(roleName);
-
       } catch (error) {
         print('Error al iniciar sesión: ${error.toString()}');
         // Puedes manejar el error de inicio de sesión según tus necesidades.
@@ -100,104 +100,125 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: Container(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'Bienvenido',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 40,
-              ),
-            ),
-            const SizedBox(
-              height: 60,
-            ),
-            Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  TextFormField(
-                    controller: emailController,
-                    // validator: (value) => EmailValidator.validate(value!)
-                    //     ? null
-                    //     : "Ingrese un email válido",
-                    maxLines: 1,
-                    decoration: InputDecoration(
-                      hintText: 'Email',
-                      prefixIcon: const Icon(Icons.email),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
+      backgroundColor: Color.fromARGB(255, 65, 37, 110),
+      body: Center(
+        child: Card(
+          color: Colors.white,
+          margin: const EdgeInsets.all(20),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Image.asset(
+                  Constants.logo,
+                  width: 120.w,
+                  height: 90.h,
+                ),
+                const Text(
+                  'Iniciar sesión',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                    color: Color.fromARGB(255, 65, 37, 110),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    controller: passwordController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Este campo es oblogatorio';
-                      }
-                      return null;
-                    },
-                    maxLines: 1,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.lock),
-                      hintText: 'Contraseña',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  ElevatedButton(
-                    onPressed: _signIn,
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.fromLTRB(40, 15, 40, 15),
-                    ),
-                    child: const Text(
-                      'Ingresar',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                ),
+                const SizedBox(
+                  height: 60,
+                ),
+                Form(
+                  key: _formKey,
+                  child: Column(
                     children: [
-                      const Text('¿Aún no tienes una cuenta?'),
-                      TextButton(
+                      TextFormField(
+                        controller: emailController,
+                        // validator: (value) => EmailValidator.validate(value!)
+                        //     ? null
+                        //     : "Ingrese un email válido",
+                        maxLines: 1,
+                        decoration: InputDecoration(
+                          hintText: 'Email',
+                          prefixIcon: const Icon(Icons.email),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        controller: passwordController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Este campo es oblogatorio';
+                          }
+                          return null;
+                        },
+                        maxLines: 1,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.lock),
+                          hintText: 'Contraseña',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      CustomButton(
+                        text: 'Ingresar',
                         onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const RegisterPage(
-                                title: 'Register UI',
+                          _signIn();
+                        },
+                        fontSize: 16.sp,
+                        radius: 12.r,
+                        verticalPadding: 12.h,
+                        hasShadow: true,
+                        shadowColor: Color.fromARGB(255, 82, 45, 142),
+                        shadowOpacity: 0.3,
+                        shadowBlurRadius: 4,
+                        shadowSpreadRadius: 0,
+                        backgroundColor: Color.fromARGB(255, 65, 37, 110),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text('¿Aún no tienes una cuenta?'),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const RegisterPage(
+                                    title: 'Register UI',
+                                  ),
+                                ),
+                              );
+                            },
+                            child: const Text(
+                              'Crear una cuenta',
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 65, 37, 110),
                               ),
                             ),
-                          );
-                        },
-                        child: const Text('Crear una cuenta'),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
-            )
-          ],
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );

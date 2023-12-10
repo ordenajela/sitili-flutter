@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/app/modules/favorites/controllers/favorites_controller.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -20,7 +21,6 @@ class BaseController extends GetxController {
     return prefs.getString('userToken');
   }
 
-  /// Agrega el producto a la lista de favoritos
   onFavoriteButtonPressed({required int productId}) async {
     try {
       final baseUrl = 'http://localhost:8090';
@@ -42,6 +42,13 @@ class BaseController extends GetxController {
 
       if (response.statusCode == 200) {
         print('Product added to favorites successfully');
+        Get.snackbar(
+          'Éxito',
+          'Producto agregado a favoritos correctamente',
+          backgroundColor: Colors.green, // Fondo verde
+          colorText: Colors.white, // Texto blanco
+          snackPosition: SnackPosition.BOTTOM,
+        );
       } else if (response.statusCode == 401) {
         print('Failed to add the product to favorites. Status code: 401');
       } else {
@@ -50,16 +57,13 @@ class BaseController extends GetxController {
         print('Response body: ${response.body}');
       }
 
-      // Actualiza la lista de productos favoritos después de agregar uno nuevo
       Get.find<FavoritesController>().getFavoriteProducts();
-      // Actualiza la vista del botón de favoritos
       update(['FavoriteButton']);
     } catch (e) {
       print('Error adding the product to favorites: $e');
     }
   }
 
-  /// Elimina el producto de la lista de favoritos
   onFavoriteButtonPressedDelete({required int productId}) async {
     try {
       final baseUrl = 'http://localhost:8090';
@@ -89,9 +93,7 @@ class BaseController extends GetxController {
         print('Response body: ${response.body}');
       }
 
-      // Actualiza la lista de productos favoritos después de eliminar uno
       Get.find<FavoritesController>().getFavoriteProducts();
-      // Actualiza la vista del botón de favoritos
       update(['FavoriteButton']);
     } catch (e) {
       print('Error removing the product from favorites: $e');

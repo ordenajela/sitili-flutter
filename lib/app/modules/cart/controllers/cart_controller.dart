@@ -19,12 +19,9 @@ class CartController extends GetxController {
   dynamic responseData;
   @override
   void onInit() async {
-    // Fetch user data
     await fetchDataUserList();
 
-    // Check if the user ID is 3
     if (_isUserIdEqualToThree()) {
-      // Execute the logic only if the user ID is 3
       await getCartProducts();
     }
 
@@ -32,7 +29,6 @@ class CartController extends GetxController {
   }
 
   bool _isUserIdEqualToThree() {
-    // Assuming responseData is the user data obtained from fetchDataUserList
     return responseData != null && responseData['id'] == 3;
   }
 
@@ -58,14 +54,8 @@ class CartController extends GetxController {
 
       if (response.statusCode == 200) {
         // Handle the response data here
-        responseData = json
-            .decode(response.body); // Assuming responseData is a class variable
-        // Print or process the data according to your requirements
-        print('Data User List: $responseData');
-      } else {
-        // Handle other status codes if needed
-        print('Error in the request. Status code: ${response.statusCode}');
-      }
+        responseData = json.decode(response.body);
+      } else {}
     } catch (error) {
       // Handle connection errors
       print('Connection error: $error');
@@ -240,7 +230,7 @@ class CartController extends GetxController {
 
       if (response.statusCode == 200) {
         final List<dynamic> cartItems = json.decode(response.body);
-        print('carritooo: ${response.body}');
+
         products = cartItems.map((item) {
           return CartItemModel.fromJson(item);
         }).toList();

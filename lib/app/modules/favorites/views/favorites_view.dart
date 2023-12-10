@@ -14,7 +14,18 @@ class FavoritesView extends GetView<FavoritesController> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
     return Scaffold(
+       appBar: AppBar(
+        title: Text(
+          'Mis favoritos',
+          style: TextStyle(color: Colors.white),
+        ),
+       
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: theme.primaryColor,
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: ListView(

@@ -19,31 +19,25 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.theme;
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Mi perfil',
+          style: TextStyle(color: Colors.white),
+        ),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: theme.primaryColor,
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: GetBuilder<ProfileController>(
           builder: (_) => ListView(
             children: [
               30.verticalSpace,
-              Row(
-                children: [
-                  const ScreenTitle(
-                    title: 'Perfil',
-                  ),
-                  Spacer(),
-                  RoundedButton(
-                    onPressed: () => Get.back(),
-                    child: SvgPicture.asset(Constants.backArrowIcon,
-                        fit: BoxFit.none),
-                  ),
-                ],
-              ),
-              20.verticalSpace,
               Container(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: [
-                   
                     Stack(
                       children: [
                         SizedBox(
@@ -87,7 +81,6 @@ class ProfileScreen extends StatelessWidget {
 
                     const SizedBox(height: 20),
 
-        
                     SizedBox(
                       width: 200,
                       child: ElevatedButton(
@@ -106,7 +99,6 @@ class ProfileScreen extends StatelessWidget {
                     const Divider(),
                     const SizedBox(height: 10),
 
-                   
                     ProfileMenuWidget(
                       title: 'Mis compras',
                       icon: Icons.account_balance_wallet,

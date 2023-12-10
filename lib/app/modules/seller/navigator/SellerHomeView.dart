@@ -9,7 +9,6 @@ import 'package:get/get.dart';
 
 import '../../../../utils/constants.dart';
 
-
 class SellerHomeView extends GetView<SellerController> {
   const SellerHomeView({Key? key}) : super(key: key);
 
@@ -23,10 +22,7 @@ class SellerHomeView extends GetView<SellerController> {
           bottom: false,
           child: IndexedStack(
             index: controller.currentIndex,
-            children:  [
-            HomeSellerView(),
-            ProfileSellerView()
-            ],
+            children: [HomeSellerView(), ProfileSellerView()],
           ),
         ),
         bottomNavigationBar: Container(
@@ -65,7 +61,7 @@ class SellerHomeView extends GetView<SellerController> {
                 ),
                 _mBottomNavItem(
                   label: 'Perfil',
-                  icon: Constants.settingsIcon,
+                  icon: Constants.userIcon,
                 ),
               ],
               onTap: controller.changeScreen,

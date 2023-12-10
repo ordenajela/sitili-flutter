@@ -8,12 +8,37 @@ import '../../../data/models/product_model.dart';
 
 class HomeController extends GetxController {
   RxList<ProductModel> products = <ProductModel>[].obs;
-  late String userToken; // Add a variable to store the user token
+  RxList<CategoryModel> categories = <CategoryModel>[].obs;
+  late String userToken;
+  int? selectedCategoryId;
+  var isLoading = true.obs;
 
   @override
-  void onInit() {
-    obtenerProductos();
+  void onInit() async {
     super.onInit();
+    await obtenerProductos();
+    await obtenerCategorias();
+    isLoading.value = false;
+  }
+
+  Future<void> obtenerCategorias() async {
+    try {
+      final response = await http.get(
+        Uri.parse('http://localhost:8090/categories/listAll'),
+        headers: {'Authorization': 'Bearer $userToken'},
+      );
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+        categories.assignAll(data.map((json) => CategoryModel.fromJson(json)));
+        print(categories);
+      } else {
+        print('No se pudo cargar categorías');
+        throw Exception('Failed to load categories');
+      }
+    } catch (e) {
+      print('Error fetching categories: $e');
+    }
   }
 
   Future<void> obtenerProductos() async {
@@ -30,7 +55,40 @@ class HomeController extends GetxController {
         final List<dynamic> data = json.decode(response.body);
         products.assignAll(data.map((json) => ProductModel.fromJson(json)));
       } else {
+        print('No se pudo cargar productos');
         throw Exception('Failed to load products');
+      }
+    } catch (e) {
+      print('Error fetching products: $e');
+    }
+  }
+
+  Future<void> obtenerProductosSegunCategoria(int? categoryId) async {
+    try {
+      // Almacena el ID de la categoría seleccionada
+      selectedCategoryId = categoryId;
+
+      if (categoryId != null) {
+        // Si categoryId no es nulo, obtén productos por categoría
+        final response = await http.post(
+          Uri.parse('http://localhost:8090/categories/proxcat'),
+          headers: {
+            'Authorization': 'Bearer $userToken',
+            'Content-Type': 'application/json',
+          },
+          body: json.encode({'id': categoryId}),
+        );
+
+        if (response.statusCode == 200) {
+          final List<dynamic> data = json.decode(response.body);
+          products.assignAll(data.map((json) => ProductModel.fromJson(json)));
+        } else {
+          print('No se pudo cargar productos por categoría');
+          throw Exception('Failed to load products by category');
+        }
+      } else {
+        // Si categoryId es nulo, obtén todos los productos
+        await obtenerProductos();
       }
     } catch (e) {
       print('Error fetching products: $e');
@@ -38,12 +96,18 @@ class HomeController extends GetxController {
   }
 }
 
-Future<void> checkConnectivity() async {
-  var connectivityResult = await (Connectivity().checkConnectivity());
-  if (connectivityResult == ConnectivityResult.mobile ||
-      connectivityResult == ConnectivityResult.wifi) {
-    print('Conexión a Internet activa');
-  } else {
-    print('No hay conexión a Internet');
+class CategoryModel {
+  final int id;
+  final String name;
+  final bool status;
+
+  CategoryModel({required this.id, required this.name, required this.status});
+
+  factory CategoryModel.fromJson(Map<String, dynamic> json) {
+    return CategoryModel(
+      id: json['id'],
+      name: json['name'],
+      status: json['status'],
+    );
   }
 }

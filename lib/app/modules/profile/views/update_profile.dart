@@ -67,6 +67,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
           ),
         ),
         title: Text('Editar Perfil', style: TextStyle(color: Colors.white)),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: theme.primaryColor,
       ),
       body: SingleChildScrollView(
         child: Container(
