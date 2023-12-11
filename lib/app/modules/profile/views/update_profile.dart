@@ -1,6 +1,4 @@
-// update_profile_screen.dart
 
-import 'package:ecommerce_app/app/data/models/user_model.dart';
 import 'package:ecommerce_app/app/modules/profile/controllers/profile_controller.dart';
 import 'package:ecommerce_app/utils/constants.dart';
 import 'package:flutter/material.dart';

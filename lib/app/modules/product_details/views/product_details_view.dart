@@ -9,7 +9,7 @@ import '../../../../utils/constants.dart';
 import '../../../components/custom_button.dart';
 import '../controllers/product_details_controller.dart';
 import 'widgets/rounded_button.dart';
-import 'widgets/size_item.dart';
+
 
 class ProductDetailsView extends GetView<ProductDetailsController> {
   const ProductDetailsView({Key? key, String? productName}) : super(key: key);

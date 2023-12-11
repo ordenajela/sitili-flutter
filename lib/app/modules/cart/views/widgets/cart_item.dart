@@ -9,7 +9,7 @@ import '../../../../../utils/constants.dart';
 import '../../controllers/cart_controller.dart';
 
 class CartItem extends GetView<CartController> {
-  final CartItemModel product; 
+  final CartItemModel product;
 
   const CartItem({
     Key? key,
@@ -37,7 +37,7 @@ class CartItem extends GetView<CartController> {
                   left: 15.w,
                   bottom: -150.h,
                   child: Image.network(
-                    product.images![0]!, // Usa las imágenes del nuevo modelo
+                    product.images![0]!,
                     height: 250.h,
                   ),
                 ),
@@ -73,7 +73,9 @@ class CartItem extends GetView<CartController> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   GestureDetector(
-                    onTap: () => {controller.onIncreasePressed(product.carId), },
+                    onTap: () => {
+                      controller.onIncreasePressed(product.carId),
+                    },
                     child: SvgPicture.asset(Constants.decreaseIcon),
                   ),
                   10.horizontalSpace,
@@ -83,7 +85,9 @@ class CartItem extends GetView<CartController> {
                       )),
                   10.horizontalSpace,
                   GestureDetector(
-                    onTap: () => {controller.onDecreasePressed(product.carId), },
+                    onTap: () => {
+                      controller.onDecreasePressed(product.carId),
+                    },
                     child: SvgPicture.asset(Constants.increaseIcon),
                   ),
                 ],

@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:ecommerce_app/app/components/screen_title.dart';
-import 'package:ecommerce_app/app/modules/orders/controllers/orders_controller.dart';
-import 'package:ecommerce_app/app/modules/product_details/views/widgets/rounded_button.dart';
-import 'package:ecommerce_app/utils/constants.dart';
+
 
 class OrderDetailsView extends StatelessWidget {
   final List<Map<String, dynamic>> orderDetailsList;

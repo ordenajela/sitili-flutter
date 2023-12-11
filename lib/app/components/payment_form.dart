@@ -1,16 +1,11 @@
 import 'package:ecommerce_app/app/components/custom_button.dart';
 import 'package:ecommerce_app/app/components/custom_button_pay.dart';
 import 'package:ecommerce_app/app/modules/base/views/base_view.dart';
-import 'package:ecommerce_app/app/modules/cart/controllers/cart_controller.dart';
 import 'package:ecommerce_app/app/modules/cart/controllers/payment_controller.dart';
-import 'package:ecommerce_app/app/modules/orders/views/orders.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
-import 'package:ecommerce_app/app/components/screen_title.dart';
-import 'package:ecommerce_app/app/modules/product_details/views/widgets/rounded_button.dart';
-import 'package:ecommerce_app/utils/constants.dart';
+
 import 'package:get/get.dart';
 
 class PaymentForm extends StatefulWidget {
@@ -28,7 +23,6 @@ class _PaymentFormState extends State<PaymentForm> {
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  // Variable de estado para controlar la habilitación del botón de "Pagar"
   bool isPaymentButtonEnabled = false;
 
   @override
@@ -43,7 +37,7 @@ class _PaymentFormState extends State<PaymentForm> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            // Agrega la lógica para retroceder aquí
+            
             Get.back();
           },
         ),
@@ -66,7 +60,7 @@ class _PaymentFormState extends State<PaymentForm> {
                 cvvCode: cvvCodeController.text,
                 showBackView: false,
                 onCreditCardWidgetChange: (CreditCardBrand brand) {
-                  // Callback para cualquier cambio en la marca de la tarjeta de crédito
+                 
                 },
               ),
               20.verticalSpace,
@@ -91,7 +85,7 @@ class _PaymentFormState extends State<PaymentForm> {
                 dateValidationMessage: 'Ingrese una fecha válida',
                 numberValidationMessage: 'Ingrese un número válido',
                 onFormComplete: () {
-                  // Callback para ejecutar al finalizar el llenado de los datos de la tarjeta
+                 
                 },
                 autovalidateMode: AutovalidateMode.always,
                 disableCardNumberAutoFillHints: false,
@@ -137,17 +131,15 @@ class _PaymentFormState extends State<PaymentForm> {
               CustomButton(
                 text: 'Enviar',
                 onPressed: () {
-                  // Obtén una referencia al PaymentController
+      
                   final PaymentController paymentController = Get.find();
 
-                  // Llama al método makePayment con los datos del formulario
                   paymentController.makePayment(
                     cardNumber: cardNumberController.text,
                     expiryDate: expiryDateController.text,
                     cvvCode: cvvCodeController.text,
                   );
 
-                  // Habilita el botón de "Pagar"
                   setState(() {
                     isPaymentButtonEnabled = true;
                   });
@@ -165,7 +157,7 @@ class _PaymentFormState extends State<PaymentForm> {
                 text: 'Pagar',
                 onPressed: isPaymentButtonEnabled
                     ? () {
-                        // Obtén una referencia al PaymentController
+                     
                         final PaymentController paymentController = Get.find();
 
                         paymentController.makeOrderSaleCar();
@@ -206,7 +198,7 @@ class _PaymentFormState extends State<PaymentForm> {
 
   @override
   void dispose() {
-    // Limpiar controladores al desechar el widget
+   
     cardNumberController.dispose();
     expiryDateController.dispose();
     cardHolderNameController.dispose();

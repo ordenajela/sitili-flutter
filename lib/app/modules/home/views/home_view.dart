@@ -1,4 +1,4 @@
-// home_view.dart
+
 import 'package:ecommerce_app/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -92,12 +92,12 @@ class HomeView extends GetView<HomeController> {
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
                         child: ElevatedButton(
                           onPressed: () {
-                            // Verifica si la categoría ya estaba seleccionada
+                            
                             if (controller.selectedCategoryId == index + 1) {
-                              // Si ya estaba seleccionada, obtén todos los productos
+                            
                               controller.obtenerProductosSegunCategoria(null);
                             } else {
-                              // Si no estaba seleccionada, obtén productos por categoría
+                              
                               controller
                                   .obtenerProductosSegunCategoria(index + 1);
                             }

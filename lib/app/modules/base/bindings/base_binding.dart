@@ -1,7 +1,6 @@
 import 'package:ecommerce_app/app/modules/cart/controllers/payment_controller.dart';
 import 'package:ecommerce_app/app/modules/orders/controllers/orders_controller.dart';
 import 'package:ecommerce_app/app/modules/profile/controllers/profile_controller.dart';
-import 'package:ecommerce_app/app/modules/profile/views/update_profile.dart';
 import 'package:get/get.dart';
 import '../../cart/controllers/cart_controller.dart';
 import '../../favorites/controllers/favorites_controller.dart';

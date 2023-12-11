@@ -1,13 +1,8 @@
-// cart_controller.dart
-
 import 'package:ecommerce_app/app/data/models/product_cart_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../components/custom_snackbar.dart';
-import '../../base/controllers/base_controller.dart';
 
 class CartController extends GetxController {
   List<CartItemModel> products = [];
@@ -53,11 +48,9 @@ class CartController extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        // Handle the response data here
         responseData = json.decode(response.body);
       } else {}
     } catch (error) {
-      // Handle connection errors
       print('Connection error: $error');
     }
   }
@@ -69,7 +62,6 @@ class CartController extends GetxController {
       final String? userToken = prefs.getString('userToken');
 
       if (userToken == null || userToken.isEmpty) {
-        print('User token not available');
         return;
       }
 
@@ -86,20 +78,12 @@ class CartController extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        print('Cantidad actualizada en el servidor');
-      } else {
-        print(
-            'Error al actualizar la cantidad en el servidor. Código de estado: ${response.statusCode}');
-        print('Detalles de la respuesta: ${response.body}');
-      }
-    } catch (e) {
-      print('Error en updateProductQuantityOnServer: $e');
-    }
+      } else {}
+    } catch (e) {}
   }
 
   onIncreasePressed(int productId) {
     try {
-      print('Tratando de aumentar la cantidad del producto con ID: $productId');
       int index = products.indexWhere((p) => p.carId == productId);
 
       if (index != -1) {
@@ -113,15 +97,8 @@ class CartController extends GetxController {
             productId, selectedQuantities[productId]!.value);
         updateTotalPrice();
         update();
-
-        print(
-            'Aumentada la cantidad del producto con ID $productId. cantidad actual: ${selectedQuantities[productId]}, precio actual: ${selectedPrices[productId]}');
-      } else {
-        print('Producto con ID $productId no encontrado en la lista');
-      }
-    } catch (e) {
-      print('Error en onIncreasePressed: $e');
-    }
+      } else {}
+    } catch (e) {}
   }
 
   onDecreasePressed(int productId) {
@@ -134,9 +111,7 @@ class CartController extends GetxController {
       updateProductQuantityOnServer(
           productId, selectedQuantities[productId]!.value);
       updateTotalPrice();
-      update(); // Actualiza todas las partes de la vista
-
-      // Verifica si la cantidad ha llegado a cero y elimina el producto del carrito
+      update();
       if (selectedQuantities[productId]!.value == 0) {
         onDeletePressed(productId);
       }
@@ -145,10 +120,8 @@ class CartController extends GetxController {
 
   onDeletePressed(int productId) async {
     try {
-      // Elimina el producto del servidor
       await deleteProductOnServer(productId);
 
-      // Elimina el producto localmente
       int index = products.indexWhere((p) => p.carId == productId);
       if (index != -1) {
         double removedProductPrice =
@@ -156,16 +129,12 @@ class CartController extends GetxController {
         products.removeAt(index);
         selectedQuantities.remove(productId);
 
-        // Actualiza el precio total restando el precio del producto eliminado
         total.value -= removedProductPrice;
 
-        // Actualiza la vista
         update(['TotalPrice']);
         update();
       }
-    } catch (e) {
-      print('Error en onDeletePressed: $e');
-    }
+    } catch (e) {}
   }
 
   Future<void> deleteProductOnServer(int productId) async {
@@ -174,8 +143,6 @@ class CartController extends GetxController {
       final String? userToken = prefs.getString('userToken');
 
       if (userToken == null) {
-        print('Usuario no autenticado');
-
         return;
       }
 
@@ -190,14 +157,8 @@ class CartController extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        print('Producto eliminado con éxito');
-      } else {
-        print(
-            'Error al eliminar el producto. Código de estado: ${response.statusCode}');
-      }
-    } catch (e) {
-      print('Error en deleteProductOnServer: $e');
-    }
+      } else {}
+    } catch (e) {}
   }
 
   void updateTotalPrice() {
@@ -214,7 +175,6 @@ class CartController extends GetxController {
       final String? userToken = prefs.getString('userToken');
 
       if (userToken == null) {
-        print('Usuario no autenticado');
         return;
       }
 
@@ -246,12 +206,9 @@ class CartController extends GetxController {
         loading.value = false;
         update();
       } else {
-        print(
-            'Error al obtener los productos del carrito. Código de estado: ${response.statusCode}');
         throw Exception('Error al obtener los productos del carrito');
       }
     } catch (e) {
-      print('Error al obtener los productos del carrito: $e');
       throw Exception('Error al obtener los productos del carrito');
     }
   }

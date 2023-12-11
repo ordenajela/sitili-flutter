@@ -1,8 +1,7 @@
 import 'package:ecommerce_app/app/data/models/user_model.dart';
 
 import 'package:ecommerce_app/app/modules/profile/controllers/profile_controller.dart';
-import 'package:ecommerce_app/app/modules/profile/views/update_profile.dart';
-import 'package:ecommerce_app/app/modules/seller/views/home_seller_view.dart';
+
 import 'package:ecommerce_app/app/modules/settings/controllers/settings_controller.dart';
 import 'package:ecommerce_app/utils/constants.dart';
 import 'package:flutter/material.dart';

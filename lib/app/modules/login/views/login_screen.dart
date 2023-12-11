@@ -42,13 +42,13 @@ void _redirectToRoleScreen(String roleName) {
       Get.offNamed(Routes.BASE);
       break;
     case 'Admin':
-      Get.offNamed(Routes.ADMIN_HOME); // Cambia a la ruta ADMIN_HOME
+      Get.offNamed(Routes.ADMIN_HOME);
       break;
     case 'Seller':
-      Get.offNamed(Routes.SELLER_HOME); // Cambia a la ruta SELLER_HOME
+      Get.offNamed(Routes.SELLER_HOME);
       break;
     default:
-      // Manejar caso predeterminado o mostrar un mensaje de error
+     
       break;
   }
 }
@@ -77,17 +77,12 @@ class _LoginPageState extends State<LoginPage> {
         final String token = responseData['jwtToken'];
         final String roleName = responseData['user']['role'][0]['roleName'];
 
-        print('Petición correcta');
-        print('El token: $token');
-        print('El usuario es un: $roleName');
-
-        // Save token and email to shared preferences
+       
         await _saveUserCredentials(token, emailController.text.trim());
 
         _redirectToRoleScreen(roleName);
       } catch (error) {
-        print('Error al iniciar sesión: ${error.toString()}');
-        // Puedes manejar el error de inicio de sesión según tus necesidades.
+       
       }
     }
   }
@@ -100,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.theme;
+
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 65, 37, 110),
       body: Center(

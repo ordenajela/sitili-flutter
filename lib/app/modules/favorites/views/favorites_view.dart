@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../components/no_data.dart';
-import '../../../components/product_item.dart';
 import '../../../components/screen_title.dart';
 import '../controllers/favorites_controller.dart';
 

@@ -1,7 +1,6 @@
-import 'package:ecommerce_app/app/components/screen_title.dart';
+
 import 'package:ecommerce_app/app/data/models/user_model.dart';
 import 'package:ecommerce_app/app/modules/orders/views/orders.dart';
-import 'package:ecommerce_app/app/modules/product_details/views/widgets/rounded_button.dart';
 import 'package:ecommerce_app/app/modules/profile/controllers/profile_controller.dart';
 import 'package:ecommerce_app/app/modules/profile/views/update_profile.dart';
 import 'package:ecommerce_app/utils/constants.dart';

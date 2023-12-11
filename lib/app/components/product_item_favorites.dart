@@ -5,12 +5,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../../utils/constants.dart';
-import '../data/models/product_favorites_model.dart'; // Importa el modelo correcto
+import '../data/models/product_favorites_model.dart';
 import '../modules/base/controllers/base_controller.dart';
-import '../routes/app_pages.dart';
+
 
 class ProductItemFavorites extends StatelessWidget {
-  final FavItemModel product; // Usa el modelo de favoritos
+  final FavItemModel product; 
   const ProductItemFavorites({Key? key, required this.product})
       : super(key: key);
 
@@ -19,7 +19,7 @@ class ProductItemFavorites extends StatelessWidget {
     final theme = context.theme;
     print('Image URL: ${product.images}');
     return GestureDetector(
-      //onTap: () => Get.toNamed(Routes.PRODUCT_DETAILS, arguments: product),
+      
       child: SizedBox(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
