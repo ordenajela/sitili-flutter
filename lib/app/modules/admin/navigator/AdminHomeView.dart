@@ -7,10 +7,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../../../../utils/constants.dart';
-import '../../cart/views/cart_view.dart';
-import '../../favorites/views/favorites_view.dart';
-import '../../home/views/home_view.dart';
-import '../../settings/views/settings_view.dart';
 
 class AdminHomeView extends GetView<AdminController> {
   const AdminHomeView({Key? key}) : super(key: key);
@@ -25,7 +21,7 @@ class AdminHomeView extends GetView<AdminController> {
           bottom: false,
           child: IndexedStack(
             index: controller.currentIndex,
-            children: const [HomeAdminView(), ProfileAdminView()],
+            children: [HomeAdminView(), ProfileAdminView()],
           ),
         ),
         bottomNavigationBar: Container(
@@ -64,7 +60,7 @@ class AdminHomeView extends GetView<AdminController> {
                 ),
                 _mBottomNavItem(
                   label: 'Perfil',
-                  icon: Constants.settingsIcon,
+                  icon: Constants.userIcon,
                 ),
               ],
               onTap: controller.changeScreen,

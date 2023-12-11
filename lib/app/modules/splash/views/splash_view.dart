@@ -85,7 +85,7 @@ class SplashView extends GetView<SplashController> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                Constants.logo,
+                Constants.logo1,
                 width: 120.w,
                 height: 90.h,
               ).animate().fade().slideY(

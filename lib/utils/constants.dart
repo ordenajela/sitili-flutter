@@ -1,6 +1,6 @@
 class Constants {
   static const logo = 'assets/images/app_icon.png';
-  static const logo1 = 'assets/images/logo_sitili.jpg';
+  static const logo1 = 'assets/images/sitili_logo.jpg';
 
   static const homeIcon = 'assets/vectors/home.svg';
   static const favoritesIcon = 'assets/vectors/favorites.svg';

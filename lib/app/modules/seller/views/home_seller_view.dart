@@ -30,21 +30,21 @@ class HomeSellerView extends GetView<SellerController> {
                     color: theme.primaryColor,
                     iconData: Icons.storefront,
                   )),
-              SizedBox(height: 10.h), // Ajusta este valor según tus necesidades
+              SizedBox(height: 10.h),
               Obx(() => CustomCard(
                     text: 'Ganancia de ventas:',
-                    subText: controller.salesCount.value,
+                    subText: '\$${controller.salesCount.value}',
                     color: Color.fromARGB(255, 65, 37, 110),
                     iconData: Icons.local_atm,
                   )),
-              SizedBox(height: 10.h), // Ajusta este valor según tus necesidades
+              SizedBox(height: 10.h),
               Obx(() => CustomCard(
                     text: 'Productos con 4★ o más:',
                     subText: controller.ratedProductsCount.value,
                     color: Color.fromARGB(255, 65, 37, 110),
                     iconData: Icons.sentiment_satisfied,
                   )),
-              SizedBox(height: 10.h), // Ajusta este valor según tus necesidades
+              SizedBox(height: 10.h),
               Obx(() => CustomCard(
                     text: 'Total de envíos realizados:',
                     subText: controller.sentCount.value,

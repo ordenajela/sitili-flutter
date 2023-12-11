@@ -114,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Image.asset(
-                  Constants.logo,
+                  Constants.logo1,
                   width: 120.w,
                   height: 90.h,
                 ),

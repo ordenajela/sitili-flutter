@@ -103,7 +103,7 @@ class _RegisterPageState extends State<RegisterPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Image.asset(
-                  Constants.logo,
+                  Constants.logo1,
                   width: 120,
                   height: 90,
                 ),
