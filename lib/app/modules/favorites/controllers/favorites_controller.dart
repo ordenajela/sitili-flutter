@@ -19,7 +19,7 @@ class FavoritesController extends GetxController {
   Future<void> getFavoriteProducts() async {
     try {
       print('ya entró');
-      final baseUrl = 'http://localhost:8090';
+      final baseUrl = 'http://3.219.197.64:8090';
 
       // Obtén el token del usuario desde SharedPreferences
       final SharedPreferences prefs = await SharedPreferences.getInstance();

@@ -45,7 +45,7 @@ class AddressController extends GetxController {
 
       // Realiza la solicitud HTTP POST a la URL de creación de dirección
       final response = await http.post(
-        Uri.parse('http://localhost:8090/address/create'),
+        Uri.parse('http://3.219.197.64:8090/address/create'),
         headers: {
           'Authorization': 'Bearer $userToken',
           'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ class AddressController extends GetxController {
 
      
       final response = await http.get(
-        Uri.parse('http://localhost:8090/address/list'),
+        Uri.parse('http://3.219.197.64:8090/address/list'),
         headers: {
           'Authorization': 'Bearer $userToken',
           'Content-Type': 'application/json',

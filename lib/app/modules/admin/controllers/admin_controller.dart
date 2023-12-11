@@ -22,7 +22,7 @@ class AdminController extends GetxController {
       final userToken = prefs.getString('userToken') ?? '';
 
       final response = await http.get(
-        Uri.parse('http://localhost:8090/dataUser/listu'),
+        Uri.parse('http://3.219.197.64:8090/dataUser/listu'),
         headers: {'Authorization': 'Bearer $userToken'},
       );
 
@@ -96,7 +96,7 @@ class AdminController extends GetxController {
         return;
       }
 
-      final url = Uri.parse('http://localhost:8090/product/listAll');
+      final url = Uri.parse('http://3.219.197.64:8090/product/listAll');
       final response = await http.get(
         url,
         headers: {
@@ -132,7 +132,7 @@ class AdminController extends GetxController {
         return;
       }
 
-      final url = Uri.parse('http://localhost:8090/order/saleAll');
+      final url = Uri.parse('http://3.219.197.64:8090/order/saleAll');
       final response = await http.get(
         url,
         headers: {
@@ -169,7 +169,7 @@ class AdminController extends GetxController {
       return;
     }
 
-    final url = Uri.parse('http://localhost:8090/users/totalUsers');
+    final url = Uri.parse('http://3.219.197.64:8090/users/totalUsers');
 
     try {
       final response = await http.get(

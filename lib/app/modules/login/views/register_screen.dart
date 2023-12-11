@@ -19,7 +19,7 @@ class AuthService {
   }) async {
     try {
       final response = await http.post(
-        Uri.parse('http://localhost:8090/registerNewUser'),
+        Uri.parse('http://3.219.197.64:8090/registerNewUser'),
         headers: {
           'Content-Type': 'application/json',
         },

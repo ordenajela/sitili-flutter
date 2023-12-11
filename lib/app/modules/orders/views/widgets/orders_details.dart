@@ -36,22 +36,6 @@ class OrderDetailsView extends StatelessWidget {
         child: ListView(
           children: [
             SizedBox(height: 30),
-            Row(
-              children: [
-                const ScreenTitle(
-                  title: 'Order Details',
-                ),
-                Spacer(),
-                RoundedButton(
-                  onPressed: () => Get.back(),
-                  child: SvgPicture.asset(
-                    Constants.backArrowIcon,
-                    fit: BoxFit.none,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
             ListView.builder(
               shrinkWrap: true,
               itemCount: orderDetailsList.length,

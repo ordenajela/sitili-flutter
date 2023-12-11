@@ -23,7 +23,7 @@ class BaseController extends GetxController {
 
   onFavoriteButtonPressed({required int productId}) async {
     try {
-      final baseUrl = 'http://localhost:8090';
+      final baseUrl = 'http://3.219.197.64:8090';
       final userToken = await _getUserToken();
 
       if (userToken == null) {
@@ -66,7 +66,7 @@ class BaseController extends GetxController {
 
   onFavoriteButtonPressedDelete({required int productId}) async {
     try {
-      final baseUrl = 'http://localhost:8090';
+      final baseUrl = 'http://3.219.197.64:8090';
       final userToken = await _getUserToken();
 
       if (userToken == null) {

@@ -58,27 +58,7 @@ class _PaymentFormState extends State<PaymentForm> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               30.verticalSpace,
-              Row(
-                children: [
-                  Column(
-                    children: [
-                      const ScreenTitle(
-                        title: 'Tarjeta',
-                        dividerEndIndent: 280,
-                      ),
-                    ],
-                  ),
-                  Spacer(),
-                  RoundedButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: SvgPicture.asset(
-                      Constants.backArrowIcon,
-                      fit: BoxFit.none,
-                    ),
-                  ),
-                ],
-              ),
-              20.verticalSpace,
+             
               CreditCardWidget(
                 cardNumber: cardNumberController.text,
                 expiryDate: expiryDateController.text,

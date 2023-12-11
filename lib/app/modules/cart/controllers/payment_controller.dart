@@ -34,7 +34,7 @@ class PaymentController extends GetxController {
 
       // Realiza la solicitud HTTP POST a la URL de pago
       final response = await http.post(
-        Uri.parse('http://localhost:8090/paymentcc/create'),
+        Uri.parse('http://3.219.197.64:8090/paymentcc/create'),
         headers: {
           'Authorization': 'Bearer $userToken',
           'Content-Type': 'application/json',
@@ -112,7 +112,7 @@ class PaymentController extends GetxController {
 
       // Realiza la solicitud HTTP POST a la URL de order/saleCar
       final response = await http.post(
-        Uri.parse('http://localhost:8090/order/saleCar'),
+        Uri.parse('http://3.219.197.64:8090/order/saleCar'),
         headers: {
           'Authorization': 'Bearer $userToken',
           'Content-Type': 'application/json',

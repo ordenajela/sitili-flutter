@@ -34,7 +34,7 @@ class ProfileController extends GetxController {
       final userToken = prefs.getString('userToken') ?? '';
 
       final response = await http.get(
-        Uri.parse('http://localhost:8090/dataUser/listu'),
+        Uri.parse('http://3.219.197.64:8090/dataUser/listu'),
         headers: {'Authorization': 'Bearer $userToken'},
       );
 
@@ -100,7 +100,7 @@ class ProfileController extends GetxController {
       final userToken = prefs.getString('userToken') ?? '';
 
       final response = await http.put(
-        Uri.parse('http://localhost:8090/dataUser/update'),
+        Uri.parse('http://3.219.197.64:8090/dataUser/update'),
         headers: {
           'Authorization': 'Bearer $userToken',
           'Content-Type': 'application/json',

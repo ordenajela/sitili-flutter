@@ -26,7 +26,7 @@ class OrdersController extends GetxController {
       return;
     }
 
-    final url = Uri.parse('http://localhost:8090/order/listUser');
+    final url = Uri.parse('http://3.219.197.64:8090/order/listUser');
 
     try {
       final response = await http.get(
@@ -70,7 +70,7 @@ class OrdersController extends GetxController {
       return;
     }
 
-    final url = Uri.parse('http://localhost:8090/orderDetail/listDetails');
+    final url = Uri.parse('http://3.219.197.64:8090/orderDetail/listDetails');
 
     try {
       final response = await http.post(

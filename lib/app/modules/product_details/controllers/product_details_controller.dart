@@ -18,7 +18,7 @@ class ProductDetailsController extends GetxController {
 
   onAddToCartPressed() async {
     try {
-      final baseUrl = 'http://localhost:8090';
+      final baseUrl = 'http://3.219.197.64:8090';
 
       // Get the user token from shared preferences
       final userToken = await _getUserToken();

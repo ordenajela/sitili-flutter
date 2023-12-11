@@ -24,7 +24,7 @@ class HomeController extends GetxController {
   Future<void> obtenerCategorias() async {
     try {
       final response = await http.get(
-        Uri.parse('http://localhost:8090/categories/listAll'),
+        Uri.parse('http://3.219.197.64:8090/categories/listAll'),
         headers: {'Authorization': 'Bearer $userToken'},
       );
 
@@ -47,7 +47,7 @@ class HomeController extends GetxController {
       userToken = prefs.getString('userToken') ?? '';
 
       final response = await http.get(
-        Uri.parse('http://localhost:8090/product/listAll'),
+        Uri.parse('http://3.219.197.64:8090/product/listAll'),
         headers: {'Authorization': 'Bearer $userToken'},
       );
 
@@ -71,7 +71,7 @@ class HomeController extends GetxController {
       if (categoryId != null) {
         // Si categoryId no es nulo, obtén productos por categoría
         final response = await http.post(
-          Uri.parse('http://localhost:8090/categories/proxcat'),
+          Uri.parse('http://3.219.197.64:8090/categories/proxcat'),
           headers: {
             'Authorization': 'Bearer $userToken',
             'Content-Type': 'application/json',

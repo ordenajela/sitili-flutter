@@ -14,7 +14,7 @@ class AuthService {
       String email, String password) async {
     try {
       final response = await http.post(
-        Uri.parse('http://localhost:8090/authenticate'),
+        Uri.parse('http://3.219.197.64:8090/authenticate'),
         headers: {
           'Content-Type': 'application/json',
         },

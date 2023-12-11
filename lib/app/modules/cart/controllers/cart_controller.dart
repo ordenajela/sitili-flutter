@@ -41,7 +41,7 @@ class CartController extends GetxController {
       return;
     }
 
-    final url = Uri.parse('http://localhost:8090/dataUser/listu');
+    final url = Uri.parse('http://3.219.197.64:8090/dataUser/listu');
 
     try {
       final response = await http.get(
@@ -74,7 +74,7 @@ class CartController extends GetxController {
       }
 
       final response = await http.put(
-        Uri.parse('http://localhost:8090/shoppingCar/update'),
+        Uri.parse('http://3.219.197.64:8090/shoppingCar/update'),
         headers: {
           'Authorization': 'Bearer $userToken',
           'Content-Type': 'application/json',
@@ -179,7 +179,7 @@ class CartController extends GetxController {
         return;
       }
 
-      final baseUrl = 'http://localhost:8090';
+      final baseUrl = 'http://3.219.197.64:8090';
       final response = await http.delete(
         Uri.parse('$baseUrl/shoppingCar/delete'),
         headers: {
@@ -218,7 +218,7 @@ class CartController extends GetxController {
         return;
       }
 
-      final baseUrl = 'http://localhost:8090';
+      final baseUrl = 'http://3.219.197.64:8090';
 
       final response = await http.get(
         Uri.parse('$baseUrl/shoppingCar/list'),

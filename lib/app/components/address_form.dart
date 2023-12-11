@@ -29,7 +29,7 @@ class _AddressFormState extends State<AddressForm> {
   Widget build(BuildContext context) {
     final theme = context.theme;
     return Scaffold(
-       appBar: AppBar(
+      appBar: AppBar(
         title: Text(
           'Dirección',
           style: TextStyle(color: Colors.white),
@@ -51,23 +51,6 @@ class _AddressFormState extends State<AddressForm> {
           child: Column(
             children: <Widget>[
               30.verticalSpace,
-              Row(
-                children: [
-                  const ScreenTitle(
-                    title: 'Dirección',
-                    dividerEndIndent: 280,
-                  ),
-                  Spacer(),
-                  RoundedButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: SvgPicture.asset(
-                      Constants.backArrowIcon,
-                      fit: BoxFit.none,
-                    ),
-                  ),
-                ],
-              ),
-              20.verticalSpace,
               Text(
                 'Ingrese su dirección:',
                 style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
