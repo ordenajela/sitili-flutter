@@ -57,7 +57,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                 bottom: -350.h,
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 300.w, // Ancho y altura iguales para hacerlo cuadrado
+                  height: 400.w, // Ancho y altura iguales para hacerlo cuadrado
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10.0),
                     child: Image.network(

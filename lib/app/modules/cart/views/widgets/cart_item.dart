@@ -34,11 +34,11 @@ class CartItem extends GetView<CartController> {
                   color: const Color(0xFFEDF1FA),
                 ),
                 Positioned(
-                  left: 0.w,
+                  right: 0.w,
                   bottom: 0.h,
                   child: Image.network(
                     product.images![0]!,
-                    height: 250.h,
+                    height: 125.h,
                   ),
                 ),
               ],

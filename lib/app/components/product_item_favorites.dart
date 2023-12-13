@@ -16,7 +16,6 @@ class ProductItemFavorites extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-    print('Image URL: ${product.images}');
     return GestureDetector(
       child: SizedBox(
         child: Column(
@@ -26,16 +25,16 @@ class ProductItemFavorites extends StatelessWidget {
               children: [
                 Container(
                   width: double.infinity,
-                  height: 200.h,
+                  height: 20.h,
                   decoration: BoxDecoration(
                     color: const Color(0xFFEDF1FA),
                     borderRadius: BorderRadius.circular(25.r),
                   ),
                 ),
                 Positioned(
-                  right: product.favId == 2 ? 0 : 0.w,
-                  bottom: -50.h,
-                  child: Image.network(product.images![0], height: 260.h)
+                  //right: product.favId == 2 ? 0 : 0.w,
+                  //bottom: -50.h,
+                  child: Image.network(product.images![0], height: 200.h)
                       .animate()
                       .slideX(
                         duration: const Duration(milliseconds: 200),

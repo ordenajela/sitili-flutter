@@ -33,8 +33,8 @@ class ProductItem extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  right: product.product_id == 2 ? 0 : 0.w,
-                  bottom: -50.h,
+                  // right: product.product_id == 2 ? 0 : 0.w,
+                  bottom: -60.h,
                   child: Image.network(product.imagenes![0], height: 260.h)
                       .animate()
                       .slideX(
