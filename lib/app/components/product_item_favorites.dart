@@ -8,9 +8,8 @@ import '../../utils/constants.dart';
 import '../data/models/product_favorites_model.dart';
 import '../modules/base/controllers/base_controller.dart';
 
-
 class ProductItemFavorites extends StatelessWidget {
-  final FavItemModel product; 
+  final FavItemModel product;
   const ProductItemFavorites({Key? key, required this.product})
       : super(key: key);
 
@@ -19,7 +18,6 @@ class ProductItemFavorites extends StatelessWidget {
     final theme = context.theme;
     print('Image URL: ${product.images}');
     return GestureDetector(
-      
       child: SizedBox(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,8 +33,8 @@ class ProductItemFavorites extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  right: product.favId == 2 ? 0 : 20.w,
-                  bottom: -80.h,
+                  right: product.favId == 2 ? 0 : 0.w,
+                  bottom: -50.h,
                   child: Image.network(product.images![0], height: 260.h)
                       .animate()
                       .slideX(

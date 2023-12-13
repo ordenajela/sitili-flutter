@@ -10,7 +10,6 @@ import '../../../components/custom_button.dart';
 import '../controllers/product_details_controller.dart';
 import 'widgets/rounded_button.dart';
 
-
 class ProductDetailsView extends GetView<ProductDetailsController> {
   const ProductDetailsView({Key? key, String? productName}) : super(key: key);
 
@@ -18,71 +17,60 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
   Widget build(BuildContext context) {
     final theme = context.theme;
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Producto',
+          style: TextStyle(color: Colors.white),
+        ),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: theme.primaryColor,
+        actions: [
+          GetBuilder<ProductDetailsController>(
+            id: 'FavoriteButton',
+            builder: (_) => Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: RoundedButton(
+                onPressed: () => controller.onFavoriteButtonPressed(),
+                child: Align(
+                  child: SvgPicture.asset(
+                    controller.product.isFavorite!
+                        ? Constants.favFilledIcon
+                        : Constants.favOutlinedIcon,
+                    width: 16.w,
+                    height: 15.h,
+                    color: controller.product.isFavorite! ? null : Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Stack(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    height: 450.h,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFEDF1FA),
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(30.r),
-                        bottomRight: Radius.circular(30.r),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 30.h,
-                    left: 20.w,
-                    right: 20.w,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        RoundedButton(
-                          onPressed: () => Get.back(),
-                          child: SvgPicture.asset(Constants.backArrowIcon,
-                              fit: BoxFit.none),
-                        ),
-                        GetBuilder<ProductDetailsController>(
-                          id: 'FavoriteButton',
-                          builder: (_) => RoundedButton(
-                            onPressed: () =>
-                                controller.onFavoriteButtonPressed(),
-                            child: Align(
-                              child: SvgPicture.asset(
-                                controller.product.isFavorite!
-                                    ? Constants.favFilledIcon
-                                    : Constants.favOutlinedIcon,
-                                width: 16.w,
-                                height: 15.h,
-                                color: controller.product.isFavorite!
-                                    ? null
-                                    : Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Positioned(
-                    right: controller.product.product_id == 2 ? 0 : 30.w,
-                    bottom: -350.h,
+              Positioned(
+                right: controller.product.product_id == 2 ? 0 : 0.w,
+                bottom: -350.h,
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 300.w, // Ancho y altura iguales para hacerlo cuadrado
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
                     child: Image.network(
                       controller.product.imagenes![0]!,
-                      height: 700.h,
-                    ).animate().slideX(
-                          duration: const Duration(milliseconds: 300),
-                          begin: 1,
-                          curve: Curves.easeInSine,
-                        ),
+                      fit: BoxFit
+                          .cover, // Ajuste para expandir o adaptar al tamaño del contenedor
+                    ),
                   ),
-                ],
+                ).animate().slideX(
+                      duration: const Duration(milliseconds: 300),
+                      begin: 1,
+                      curve: Curves.easeInSine,
+                    ),
               ),
               20.verticalSpace,
               Padding(
@@ -114,7 +102,6 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                           fontSize: 18.sp, fontWeight: FontWeight.bold),
                     ),
                     5.horizontalSpace,
-                  
                   ],
                 ).animate().fade().slideX(
                       duration: const Duration(milliseconds: 300),
