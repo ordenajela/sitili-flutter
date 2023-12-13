@@ -12,35 +12,37 @@ class SellerController extends GetxController {
 
   UserModel? userInfo;
 
-  Future<UserModel> getUserInfo() async {
-    userInfo = null;
-    if (userInfo != null) {
-      return userInfo!;
-    }
+  // Future<UserModel> getUserInfo() async {
+  //   userInfo = null;
+  //   if (userInfo != null) {
+  //     return userInfo!;
+  //   }
 
-    try {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      final userToken = prefs.getString('userToken') ?? '';
+  //   try {
+  //     final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //     final userToken = prefs.getString('userToken') ?? '';
 
-      final response = await http.get(
-        Uri.parse('http://3.219.197.64:8090/dataUser/listu'),
-        headers: {'Authorization': 'Bearer $userToken'},
-      );
+  //     final response = await http.get(
+  //       Uri.parse('http://3.219.197.64:8090/dataUser/listu'),
+  //       headers: {'Authorization': 'Bearer $userToken'},
+  //     );
 
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> data = json.decode(response.body);
-        userInfo = UserModel.fromJson(data);
-        print(response.body);
-        return userInfo!;
-      } else {
-        throw Exception('Failed to fetch data');
-      }
-    } catch (e) {
-      print('Error fetching data: $e');
-
-      throw Exception('Failed to fetch data');
-    }
-  }
+  //     if (response.statusCode == 200) {
+  //       final Map<String, dynamic> data = json.decode(response.body);
+  //       userInfo = UserModel.fromJson(data);
+  //       print(response.body);
+  //       return userInfo!;
+  //     } else {
+  //       print(
+  //           'Failed to fetch data. Status code: ${response.statusCode}, Response: ${response.body}');
+  //       throw Exception(
+  //           'Failed to fetch data. Status code: ${response.statusCode}');
+  //     }
+  //   } catch (e) {
+  //     print('Error fetching data: $e');
+  //     throw Exception('Failed to fetch data. Error: $e');
+  //   }
+  // }
 
   String getUserName() {
     return userInfo?.firstName ?? '';
@@ -56,7 +58,7 @@ class SellerController extends GetxController {
 
   Future<void> fetchDataFromUrl() async {
     try {
-      await getUserInfo();
+      //await getUserInfo();
     } catch (e) {
       print('Error fetching data: $e');
     }
@@ -84,7 +86,7 @@ class SellerController extends GetxController {
     fetchSellerRate();
     fetchSellerSent();
     fetchDataFromUrl();
-    getUserInfo();
+    //getUserInfo();
   }
 
   Future<void> fetchSellerProducts() async {

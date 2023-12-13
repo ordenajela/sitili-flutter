@@ -47,8 +47,8 @@ class _CustomCarouselState extends State<CustomCarousel> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 color: _currentIndex == index
-                    ? const Color(0xFF512D6D)
-                    : const Color(0xff496D2D),
+                    ? const Color(0xFF1976D2)
+                    : const Color(0xff6638AE),
               ),
             );
           }),

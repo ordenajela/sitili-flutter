@@ -1,4 +1,3 @@
-
 import 'package:ecommerce_app/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -53,7 +52,7 @@ class HomeView extends GetView<HomeController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              height: 120.h,
+                              height: 100.h,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(8.0),
                                 child: Image.network(
@@ -92,12 +91,9 @@ class HomeView extends GetView<HomeController> {
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
                         child: ElevatedButton(
                           onPressed: () {
-                            
                             if (controller.selectedCategoryId == index + 1) {
-                            
                               controller.obtenerProductosSegunCategoria(null);
                             } else {
-                              
                               controller
                                   .obtenerProductosSegunCategoria(index + 1);
                             }

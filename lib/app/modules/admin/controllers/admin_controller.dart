@@ -11,35 +11,35 @@ class AdminController extends GetxController {
 
   UserModel? userInfo;
 
-  Future<UserModel> getUserInfo() async {
-    userInfo = null;
-    if (userInfo != null) {
-      return userInfo!;
-    }
+  // Future<UserModel> getUserInfo() async {
+  //   userInfo = null;
+  //   if (userInfo != null) {
+  //     return userInfo!;
+  //   }
 
-    try {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      final userToken = prefs.getString('userToken') ?? '';
+  //   try {
+  //     final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //     final userToken = prefs.getString('userToken') ?? '';
 
-      final response = await http.get(
-        Uri.parse('http://3.219.197.64:8090/dataUser/listu'),
-        headers: {'Authorization': 'Bearer $userToken'},
-      );
+  //     final response = await http.get(
+  //       Uri.parse('http://3.219.197.64:8090/dataUser/listu'),
+  //       headers: {'Authorization': 'Bearer $userToken'},
+  //     );
 
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> data = json.decode(response.body);
-        userInfo = UserModel.fromJson(data);
-        print(response.body);
-        return userInfo!;
-      } else {
-        throw Exception('Failed to fetch data');
-      }
-    } catch (e) {
-      print('Error fetching data: $e');
+  //     if (response.statusCode == 200) {
+  //       final Map<String, dynamic> data = json.decode(response.body);
+  //       userInfo = UserModel.fromJson(data);
+  //       print(response.body);
+  //       return userInfo!;
+  //     } else {
+  //       throw Exception('Failed to fetch data');
+  //     }
+  //   } catch (e) {
+  //     print('Error fetching data: $e');
 
-      throw Exception('Failed to fetch data');
-    }
-  }
+  //     throw Exception('Failed to fetch data');
+  //   }
+  // }
 
   String getUserName() {
     return userInfo?.firstName ?? '';
@@ -55,7 +55,7 @@ class AdminController extends GetxController {
 
   Future<void> fetchDataFromUrl() async {
     try {
-      await getUserInfo();
+      //await getUserInfo();
     } catch (e) {
       print('Error fetching data: $e');
     }
@@ -83,7 +83,7 @@ class AdminController extends GetxController {
     fetchSellerRate();
 
     fetchDataFromUrl();
-    getUserInfo();
+    //getUserInfo();
   }
 
   Future<void> fetchSellerProducts() async {
@@ -146,7 +146,7 @@ class AdminController extends GetxController {
         print('Ventas totales: $responseData');
 
         // Obtén el valor 'total' de las ventas
-        final int totalSales = responseData['total'] ?? 0;
+        final double totalSales = responseData['total'] ?? 0;
         final int totalSold = responseData['vendidos'] ?? 0;
 
         // Actualiza la variable de estado o realiza acciones con el total de ventas

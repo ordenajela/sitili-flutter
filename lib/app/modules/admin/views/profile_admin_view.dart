@@ -63,7 +63,7 @@ class ProfileAdminView extends StatelessWidget {
                             ConnectionState.waiting) {
                           return CircularProgressIndicator();
                         } else if (snapshot.hasError) {
-                          return Text('Error: ${snapshot.error}');
+                          return Text('Administrador');
                         } else {
                           final user = snapshot.data!;
                           return Column(

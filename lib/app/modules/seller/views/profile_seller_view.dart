@@ -64,7 +64,7 @@ class ProfileSellerView extends StatelessWidget {
                             ConnectionState.waiting) {
                           return CircularProgressIndicator();
                         } else if (snapshot.hasError) {
-                          return Text('Error: ${snapshot.error}');
+                          return Text('Vendedor');
                         } else {
                           final user = snapshot.data!;
                           return Column(
